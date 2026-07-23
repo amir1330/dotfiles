@@ -1,0 +1,83 @@
+/*
+* GTK colors generated with Matugen
+* The source template is here: ~/.config/matugen/templates/gtk-4.0/gtk.css
+*/
+
+@media (prefers-color-scheme: light) {
+    /* Accents */
+    @define-color accent_color #616118;
+    @define-color accent_fg_color #ffffff;
+    @define-color accent_bg_color #616118;
+    @define-color destructive_bg_color #ffdad6;
+    @define-color destructive_fg_color #410002;
+    @define-color destructive_color #ba1a1a;
+    @define-color success_bg_color #B5CCBA;
+    @define-color success_fg_color #213528;
+    @define-color success_color #374B3E;
+    /* Base surfaces */
+    @define-color window_bg_color #fdf9ec;
+    @define-color window_fg_color #1c1c14;
+    @define-color headerbar_bg_color #f1eee1;
+    @define-color headerbar_backdrop_color #f1eee1;
+    @define-color headerbar_fg_color #1c1c14;
+    @define-color card_bg_color #f1eee1;
+    @define-color card_fg_color #1c1c14;
+    @define-color sidebar_bg_color #f1eee1;
+    @define-color sidebar_fg_color #1c1c14;
+    @define-color secondary_sidebar_bg_color #f7f4e6;
+    @define-color secondary_sidebar_backdrop_color #f7f4e6;
+    @define-color secondary_sidebar_fg_color #1c1c14;
+    @define-color sidebar_border_color @sidebar_bg_color;
+    @define-color sidebar_backdrop_color @sidebar_bg_color;
+    @define-color view_bg_color #ffffff;
+    @define-color view_fg_color #1c1c14;
+    @define-color overview_bg_color #ffffff;
+    @define-color overview_fg_color #1c1c14;
+    /* Popups */
+    @define-color popover_bg_color #e6e3d5;
+    @define-color popover_fg_color #1c1c14;
+    @define-color dialog_bg_color #ece8db;
+    @define-color dialog_fg_color #1c1c14;
+    @define-color thumbnail_bg_color #ece8db;
+    @define-color thumbnail_fg_color #1c1c14;
+}
+
+@media (prefers-color-scheme: dark) {
+
+    /* Accents */
+    @define-color accent_color #cbcb76;
+    @define-color accent_fg_color #323200;
+    @define-color accent_bg_color #cbcb76;
+    @define-color destructive_bg_color #93000a;
+    @define-color destructive_fg_color #ffdad6;
+    @define-color destructive_color #ffb4ab;
+    @define-color success_bg_color #374B3E;
+    @define-color success_fg_color #D1E9D6;
+    @define-color success_color #B5CCBA;
+    /* Base surfaces */
+    @define-color window_bg_color #14140c;
+    @define-color window_fg_color #e6e3d5;
+    @define-color headerbar_bg_color #202018;
+    @define-color headerbar_backdrop_color #202018;
+    @define-color headerbar_fg_color #e6e3d5;
+    @define-color card_bg_color #202018;
+    @define-color card_fg_color #e6e3d5;
+    @define-color sidebar_bg_color #202018;
+    @define-color sidebar_fg_color #e6e3d5;
+    @define-color secondary_sidebar_bg_color #1c1c14;
+    @define-color secondary_sidebar_backdrop_color #1c1c14;
+    @define-color secondary_sidebar_fg_color #e6e3d5;
+    @define-color sidebar_border_color @sidebar_bg_color;
+    @define-color sidebar_backdrop_color @sidebar_bg_color;
+    @define-color view_bg_color #0f0f07;
+    @define-color view_fg_color #e6e3d5;
+    @define-color overview_bg_color #0f0f07;
+    @define-color overview_fg_color #e6e3d5;
+    /* Popups */
+    @define-color popover_bg_color #36352c;
+    @define-color popover_fg_color #e6e3d5;
+    @define-color dialog_bg_color #2b2a22;
+    @define-color dialog_fg_color #e6e3d5;
+    @define-color thumbnail_bg_color #2b2a22;
+    @define-color thumbnail_fg_color #e6e3d5;
+}

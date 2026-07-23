@@ -11,26 +11,16 @@
     "bluetooth",
     "battery",
     "clock",
+    "sway/language",
     "tray",
     "custom/power"
   ],
   "clock": {
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": "{:%b %d(%H:%M) 󰃰}"
+    "format": "{:%b %d(%H:%M) }"
   },
   "backlight": {
-    "format": "{percent}% {icon}",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
+    "format": "{percent}% ",
     "on-scroll-up": "light -A 1",
     "on-scroll-down": "light -U 1"
   },
@@ -40,7 +30,7 @@
       "critical": 15
     },
     "format": "{capacity}% {icon}",
-    "format-charging": "{capacity}% 󰢝",
+    "format-charging": "{capacity}% ",
     "format-plugged": "{capacity}% ",
     "format-alt": "{time} {icon}",
     "format-icons": [
@@ -56,7 +46,7 @@
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": "󰝟 {icon} {format_source}",
     "format-muted": "󰝟 {format_source}",
-    "format-source": "{volume}% ",
+    "format-source": "",
     "format-source-muted": "",
     "format-icons": {
       "headphone": "",
@@ -75,12 +65,12 @@
     "on-click": "pavucontrol"
   },
   "bluetooth": {
-    "format": " {status}",
-    "format-disabled": "󰂲",
-    "format-off": "󰂲",
-    "format-on": "󰂯",
-    "format-connected": "󰂱 {num_connections}",
-    "format-connected-battery": "󰂱 {device_battery_percentage}%",
+    "format": " {status}",
+    "format-disabled": "",
+    "format-off": "",
+    "format-on": "",
+    "format-connected": " {num_connections}",
+    "format-connected-battery": " {device_battery_percentage}%",
     "tooltip-format": "{controller_alias}\t{controller_address}",
     "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
@@ -89,9 +79,9 @@
   },
   "network": {
     "format": "{ifname}",
-    "format-wifi": "Connected ",
-    "format-ethernet": "{ipaddr}/{cidr} 󰈀",
-    "format-disconnected": "Disconnected 󱛅", //An empty format will hide the module.
+    "format-wifi": " Connected",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "format-disconnected": "Disconnected ",
     "tooltip-format": "{ifname} via {gwaddr} 󰛳",
     "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
     "tooltip-format-ethernet": "{ifname} ",
@@ -107,8 +97,13 @@
     "disable-scroll": true
   },
   "custom/power": {
-    "format": "󰤆",
+    "format": "",
     "tooltip": false,
     "on-click": "wlogout"
+  },
+  "sway/language": {
+    "format": "{short}",
+    "format-us": "US",
+    "format-ru": "RU"
   }
 }

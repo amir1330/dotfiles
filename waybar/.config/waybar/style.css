@@ -85,6 +85,12 @@ widget>* {
   color: #fb4934;
 }
 
+#language {
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 0 10px;
+}
+
 @keyframes blink {
   to {
     color: #ebdbb2;

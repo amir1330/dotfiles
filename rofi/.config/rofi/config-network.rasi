@@ -1,0 +1,15 @@
+@import "~/.config/rofi/config.rasi"
+
+window {
+  width: 600px;
+}
+
+listview {
+  lines: 8;
+  fixed-height: false;
+}
+
+entry {
+  placeholder: "  Search networks...";
+  placeholder-color: @background-alt;
+}

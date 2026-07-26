@@ -1,124 +1,187 @@
+@import url("colors.css");
+
 * {
   border: none;
   border-radius: 0;
-  font-family: JetBrainsMono Nerd Font;
-  font-size: 14px;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 16px;
   font-weight: 500;
+  min-height: 0;
 }
 
 window#waybar {
-  background-color: #282828;
-  color: #ebdbb1;
-  transition-property: background-color;
-  transition-duration: 0.5s;
-  border-bottom: solid 0px #3c3836;
+  background: @bg;
+  color: @fg;
 }
 
-window#waybar.hidden {
-  opacity: 0.2;
+tooltip {
+  background: @bg-alt;
+  border: 1px solid @border;
+}
+
+tooltip label {
+  color: @fg;
+}
+
+/* workspaces */
+#workspaces {
+  margin-left: 8px;
 }
 
 #workspaces button {
-  padding: 0 5px;
-  color: #ebdbb2;
-  border-radius: 5px;
+  padding: 0 6px;
+  color: @gray;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s ease;
 }
 
 #workspaces button.focused {
-  background-color: #ebdbb2;
-  color: #282828;
-  border-bottom: none;
+  color: @yellow;
+  border-bottom-color: @yellow;
 }
 
 #workspaces button.urgent {
-  background-color: #cc241d;
+  color: @red;
+  border-bottom-color: @red;
 }
 
-widget>* {
-  margin-top: 6px;
-  margin-bottom: 6px;
+#workspaces button:hover {
+  color: @fg;
+  background: @bg-alt;
 }
 
-.modules-left>widget>* {
-  margin-left: 12px;
-  margin-right: 12px;
-}
-
-.modules-left>widget:first-child>* {
-  margin-left: 6px;
-}
-
-.modules-left>widget:last-child>* {
-  margin-right: 18px;
-}
-
-.modules-right>widget>* {
+/* clock center */
+#clock {
+  color: @fg;
   padding: 0 12px;
-  margin-left: 0;
-  margin-right: 0;
-  color: #282828;
-  background-color: #ebdbb2;
 }
 
-#bluetooth.disabled,
-#bluetooth.off {
-  color: #928374;
-  background-color: #3c3836;
+/* prayer times */
+#custom-prayer {
+  color: @aqua;
+  border-bottom-color: @aqua;
+  padding: 0 8px;
 }
 
-#bluetooth.connected {
-  color: #282828;
-  background-color: #ebdbb2;
-}
-
-.modules-right>widget:first-child>* {
-  border-radius: 5px 0 0 5px;
-}
-
-.modules-right>widget:last-child>* {
-  border-radius: 0 5px 5px 0;
-  margin-right: 6px;
-}
-
-#mode {
+/* right modules — text + underline */
+.modules-right > widget > * {
+  padding: 0 6px;
+  margin: 0 2px;
   background: transparent;
-  color: #fb4934;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s ease;
 }
 
+/* language */
 #language {
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 0 10px;
+  color: @aqua;
+  border-bottom-color: @aqua;
+}
+
+/* tray */
+#tray {
+  color: @fg;
+  border-bottom-color: @border;
+  padding: 0 6px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+}
+
+/* pulseaudio */
+#pulseaudio {
+  color: @green;
+  border-bottom-color: @green;
+}
+
+#pulseaudio.muted {
+  color: @gray;
+  border-bottom-color: @gray;
+}
+
+/* mic */
+#custom-mic.on {
+  color: @green;
+  border-bottom-color: @green;
+}
+
+#custom-mic.muted {
+  color: @gray;
+  border-bottom-color: @gray;
+}
+
+/* backlight */
+#backlight {
+  color: @yellow;
+  border-bottom-color: @yellow;
+}
+
+/* network */
+#network {
+  color: @blue;
+  border-bottom-color: @blue;
+}
+
+#network.disconnected {
+  color: @gray;
+  border-bottom-color: @gray;
+}
+
+/* bluetooth */
+#bluetooth {
+  color: @green;
+  border-bottom-color: @green;
+}
+
+#bluetooth.off,
+#bluetooth.disabled {
+  color: @gray;
+  border-bottom-color: @gray;
+}
+
+/* power profiles */
+#power-profiles-daemon {
+  color: @orange;
+  border-bottom-color: @orange;
+}
+
+/* battery */
+#battery {
+  color: @green;
+  border-bottom-color: @green;
+}
+
+#battery.warning {
+  color: @yellow;
+  border-bottom-color: @yellow;
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  border-bottom-color: @red;
+  animation: blink 1s linear infinite alternate;
+}
+
+#battery.charging {
+  color: @green;
+  border-bottom-color: @green;
 }
 
 @keyframes blink {
   to {
-    color: #ebdbb2;
+    color: @fg;
+    border-bottom-color: @fg;
   }
 }
 
-#battery.critical:not(.charging) {
-  animation-name: blink;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-#tray {
-  background-color: #282828;
-  color: #ebdbb2
-}
-
-label:focus {
-  background-color: #282828;
-}
-
-tooltip {
-  border-radius: 5px;
-  background: #504945;
-}
-
-tooltip label {
-  color: #ebdbb2;
+/* power button */
+#custom-power {
+  color: @red;
+  border-bottom-color: @red;
 }

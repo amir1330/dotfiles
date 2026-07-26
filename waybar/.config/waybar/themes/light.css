@@ -1,0 +1,14 @@
+/* Gruvbox Light — waybar colors */
+@define-color bg #fbf1c7;
+@define-color fg #3c3836;
+@define-color bg-alt #ebdbb2;
+@define-color border #d5c4a1;
+@define-color gray #928374;
+@define-color gray-light #7c6f64;
+@define-color yellow #b57614;
+@define-color red #cc241d;
+@define-color red-dark #9d0006;
+@define-color green #79740e;
+@define-color aqua #665c54;
+@define-color blue #076678;
+@define-color orange #af3a03;

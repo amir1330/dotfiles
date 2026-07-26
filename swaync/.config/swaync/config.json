@@ -32,7 +32,7 @@
       "dnd",
       "buttons-grid",
       "mpris",
-      "volume", 
+      "volume",
       "backlight",
       "title",
       "notifications"
@@ -52,7 +52,7 @@
       },
       "mpris": {
           "image-size": 96,
-          "image-radius": 8
+          "image-radius": 0
       },
       "volume": {
           "label": "󰕾"
@@ -64,19 +64,15 @@
           "actions": [
               {
                   "label": "󰐥",
-                  "command": "bash -c $HOME/.config/hypr/scripts/Wlogout.sh"
+                  "command": "wlogout"
               },
               {
                   "label": "󰌾",
-                  "command": "bash -c $HOME/.config/hypr/scripts/LockScreen.sh"
+                  "command": "swaylock"
               },
               {
                   "label": "󰍃",
-                  "command": "hyprctl dispatch exit"
-              },
-              {
-                  "label": "󰀝",
-                  "command": "bash -c $HOME/.config/hypr/scripts/AirplaneMode.sh"
+                  "command": "swaymsg exit"
               },
               {
                   "label": "󰝟",

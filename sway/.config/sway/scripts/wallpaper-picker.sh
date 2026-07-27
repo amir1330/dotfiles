@@ -109,6 +109,10 @@ if [[ "$target" != "$current" ]]; then
         sed -i 's/^gtk-theme-name=.*/gtk-theme-name=Gruvbox-Dark/' "$HOME/.config/gtk-3.0/settings.ini" 2>/dev/null || true
     fi
 
+    # btop
+    sed -i "s/^color_theme = .*/color_theme = \"gruvbox_$target\"/" "$HOME/.config/btop/btop.conf"
+    pkill -USR2 btop 2>/dev/null || true
+
     # reload sway (applies new border colors + re-reads wallpaper line we just sed'ed)
     swaymsg reload
 

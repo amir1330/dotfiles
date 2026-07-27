@@ -32,7 +32,7 @@ set $fileexp thunar
 default_border pixel 4
 default_floating_border pixel 4
 ### Output configuration
-output * bg /home/amir1330/Wallpapers/7731934.png fill
+output * bg /home/amir1330/Wallpapers/7731799.png fill
 
 client.focused          $yellow $accent $darkgray $yellow $yellow
 client.focused_inactive $darkgray $darkgray $accent $darkgray $darkgray
@@ -177,7 +177,7 @@ input type:pointer {
     bindsym --to-code $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym --to-code $mod+Shift+space floating toggle
+    bindsym --to-code $mod+Shift+f floating toggle
 
     # Swap focus between the tiling area and the floating area
 
@@ -240,7 +240,7 @@ bindsym --to-code $mod+r mode "resize"
 
 ### Screenshot mode:
 
-    set $screenshot "Screenshot: [s]creen [w]window [r]egion [R]ecord"
+    set $screenshot "Screenshot: [s]creen [w]window [r]egion [f]reeze [R]ecord"
 
     set $screenshot-cmd ~/.config/sway/screenshot.sh
 
@@ -248,6 +248,7 @@ bindsym --to-code $mod+r mode "resize"
         bindsym --to-code s mode "default", exec $screenshot-cmd screen
         bindsym --to-code w mode "default", exec $screenshot-cmd window 
         bindsym --to-code r mode "default", exec $screenshot-cmd region 
+        bindsym --to-code f mode "default", exec $screenshot-cmd freeze
         bindsym --to-code Shift+r mode "default", exec gpu-screen-recoder-gtk
 
         bindsym --to-code Return mode "default"

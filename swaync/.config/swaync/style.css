@@ -1,220 +1,181 @@
-/* swaync — structural styles (no colors, theme files handle that) */
-
-* {
-    font-family: "JetBrainsMono Nerd Font";
-    font-weight: 500;
-    font-size: 1rem;
-    border-radius: 0;
-}
-
-/* --- Notification window --- */
-.floating-notifications {
-    background: transparent;
-}
-
-.blank-window {
-    background: alpha(black, 0.1);
-}
+/* Gruvbox Dark — swaync */
+@define-color bg #1d2021;
+@define-color bg-alt #32302f;
+@define-color fg #ebdbb2;
+@define-color border #504945;
+@define-color gray #7c6f64;
+@define-color green #b8bb26;
+@define-color yellow #fabd2f;
+@define-color red #fb4934;
+@define-color blue #83a598;
+@define-color aqua #8ec07c;
 
 /* --- Notification --- */
 .notification {
-    padding: 8px 12px;
-    border: 1px solid;
-    border-radius: 0;
-}
-
-.notification-default-action {
-    margin: 0;
-    padding: 0;
-    border-radius: 0;
-}
-
-.notification-default-action:not(:only-child) {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    background: @bg-alt;
+    border-color: @border;
 }
 
 /* --- Close button --- */
 .close-button {
-    padding: 0;
-    min-width: 20px;
-    min-height: 20px;
-    border-radius: 0;
-    margin-top: 4px;
-    margin-right: 4px;
-    box-shadow: none;
-    border: none;
+    background: @red;
+    color: @bg;
 }
 
 .close-button:hover {
-    box-shadow: none;
-    border: none;
+    background: @red;
+    color: @bg;
 }
 
 /* --- Notification actions --- */
 .notification-action {
-    border: 1px solid;
-    border-top: none;
-    border-radius: 0;
+    border-color: @border;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+    color: @fg;
+    background: @bg-alt;
 }
 
 .notification-action:first-child {
-    border-bottom-left-radius: 0;
+    background: @bg-alt;
 }
 
 .notification-action:last-child {
-    border-bottom-right-radius: 0;
+    background: @bg;
 }
 
 /* --- Notification content --- */
 .summary {
-    font-size: 1rem;
-    font-weight: bold;
-    background: transparent;
-    text-shadow: none;
+    color: @fg;
 }
 
 .time {
-    font-size: 1rem;
-    font-weight: bold;
-    background: transparent;
-    text-shadow: none;
-    margin-right: 18px;
+    color: @gray;
 }
 
 .body {
-    font-size: 1rem;
-    font-weight: normal;
-    background: transparent;
-    text-shadow: none;
+    color: @fg;
 }
 
 .body-image {
-    margin-top: 6px;
-    border-radius: 0;
+    color: @fg;
 }
 
 /* --- Inline reply --- */
 .inline-reply-entry {
-    border: 1px solid;
-    border-radius: 0;
+    background: @bg;
+    color: @fg;
+    border-color: @border;
 }
 
 .inline-reply-button {
-    font-size: 0.75rem;
-    margin-left: 4px;
-    border: 1px solid;
-    border-radius: 0;
+    background: @bg;
+    color: @fg;
+    border-color: @border;
 }
 
 /* --- Control center --- */
 .control-center {
-    border: 1px solid;
-    border-radius: 0;
-}
-
-.control-center-list {
-    background: transparent;
-}
-
-.control-center .notification-row {
-    outline: none;
+    background: @bg;
+    border-color: @border;
+    color: @fg;
 }
 
 .control-center .notification-row:focus,
 .control-center .notification-row:hover {
-    opacity: 1;
-    border-radius: 0;
+    background: @bg-alt;
 }
 
 /* --- Widget: Title --- */
 .widget-title {
-    padding: 6px 8px;
-    margin: 4px;
-    border-radius: 0;
+    color: @fg;
+    background: @bg-alt;
 }
 
 .widget-title > button {
-    font-size: 0.75rem;
-    border-radius: 0;
-    border: 1px solid;
+    color: @fg;
+    border-color: @border;
+}
+
+.widget-title > button:hover {
+    background: @fg;
+    color: @bg;
 }
 
 /* --- Widget: DND --- */
 .widget-dnd {
-    padding: 4px 8px;
-    margin: 4px;
-    border-radius: 0;
-    font-size: 0.85rem;
+    background: @bg-alt;
+    color: @gray;
 }
 
 .widget-dnd > switch {
-    border-radius: 0;
-    border: 1px solid;
+    border-color: @blue;
+    background: @border;
+}
+
+.widget-dnd > switch:checked {
+    background: @green;
+    border-color: @green;
 }
 
 .widget-dnd > switch slider {
-    border-radius: 0;
+    background: @bg;
+}
+
+.widget-dnd > switch:checked slider {
+    background: @bg;
 }
 
 /* --- Widget: MPRIS --- */
 .widget-mpris {
-    padding: 4px 8px;
-    margin: 4px;
-    border-radius: 0;
-}
-
-.widget-mpris > box > button {
-    border-radius: 0;
-}
-
-.widget-mpris-player {
-    padding: 4px 8px;
-    margin: 4px;
+    color: @fg;
+    background: @bg-alt;
 }
 
 .widget-mpris-title {
-    font-weight: bold;
-    font-size: 1rem;
+    color: @fg;
 }
 
 .widget-mpris-subtitle {
-    font-size: 0.85rem;
+    color: @gray;
 }
 
 /* --- Widget: Buttons grid --- */
 .widget-buttons-grid {
-    padding: 4px;
-    margin: 4px;
-    border-radius: 0;
+    color: @aqua;
+    background: @bg-alt;
 }
 
 .widget-buttons-grid > flowbox > flowboxchild > button {
-    margin: 1px;
-    border-radius: 0;
+    background: @bg;
+    color: @fg;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild >button:hover {
+    background: @fg;
+    color: @bg;
 }
 
 /* --- Widget: Volume --- */
 .widget-volume {
-    padding: 4px;
-    margin: 8px;
-    border-radius: 0;
+    background: @bg-alt;
+    color: @fg;
 }
 
 .widget-volume > box > button {
-    border: none;
+    background: @border;
 }
 
 /* --- Widget: Backlight --- */
 .widget-backlight {
-    padding: 4px;
-    margin: 8px;
-    border-radius: 0;
+    background: @bg-alt;
+    color: @fg;
 }
 
 /* --- Per-app volume --- */
 .per-app-volume {
-    padding: 4px 8px 8px;
-    margin: 0 8px 8px;
-    border-radius: 0;
+    background: @bg;
+    color: @fg;
 }

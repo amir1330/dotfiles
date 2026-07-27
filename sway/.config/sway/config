@@ -257,8 +257,8 @@ bindsym --to-code $mod+r mode "resize"
 
     bindsym --to-code Print mode $screenshot
 
-    # Win+Shift+S: direct region screenshot (like Windows snipping tool)
-    bindsym --to-code $mod+Shift+s exec grim -g "$(slurp)" - | swappy -f -
+    # Win+Shift+S: freeze screen then select region
+    bindsym --to-code $mod+Shift+s exec $screenshot-cmd freeze
 
     # window rules
     for_window [app_id="org.gnome.Characters"] floating enable

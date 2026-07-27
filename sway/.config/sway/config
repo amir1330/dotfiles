@@ -8,9 +8,8 @@ exec wl-paste --type image --watch cliphist store
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id blueman-applet
 
-set $accent #ebdbb2
-set $red #cc241d
-set $darkgray #3c3836
+include ~/.config/sway/theme-colors
+set $yellow #d79921
 
 set $mod Mod4
 

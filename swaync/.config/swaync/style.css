@@ -1,287 +1,220 @@
-/* Gruvbox Light — swaync */
-@define-color bg #fbf1c7;
-@define-color bg-alt #ebdbb2;
-@define-color fg #3c3836;
-@define-color border #d5c4a1;
-@define-color gray #928374;
-@define-color green #79740e;
-@define-color yellow #b57614;
-@define-color red #cc241d;
-@define-color blue #076678;
-@define-color aqua #689d6a;
+/* swaync — structural styles (no colors, theme files handle that) */
 
 * {
-    font-family: "JetBrainsMono Nerd Font" !important;
-    font-weight: 500 !important;
-    font-size: 1rem !important;
-    border-radius: 0 !important;
+    font-family: "JetBrainsMono Nerd Font";
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 0;
 }
 
-.notification {
-    background: @bg-alt !important;
-    padding: 3px 10px 3px 6px !important;
-    border-radius: 0 !important;
-    border: 1px solid @border !important;
-}
-
-.notification-default-action {
-    margin: 0 !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-}
-
-.close-button {
-    background: @red !important;
-    color: @bg !important;
-    text-shadow: none !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    margin-top: 5px !important;
-    margin-right: 5px !important;
-}
-
-.close-button:hover {
-    box-shadow: none !important;
-    background: @red !important;
-    border: none !important;
-}
-
-.notification-action {
-    border: 1px solid @border !important;
-    border-top: none !important;
-    border-radius: 0 !important;
-}
-
-.notification-default-action:hover,
-.notification-action:hover {
-    color: @fg !important;
-    background: @bg-alt !important;
-}
-
-.notification-default-action:not(:only-child) {
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
-
-.notification-action:first-child {
-    border-bottom-left-radius: 0 !important;
-    background: @bg-alt !important;
-}
-
-.notification-action:last-child {
-    border-bottom-right-radius: 0 !important;
-    background: @bg !important;
-}
-
-.inline-reply-entry {
-    background: @bg !important;
-    color: @fg !important;
-    caret-color: @fg !important;
-    border: 1px solid @border !important;
-    border-radius: 0 !important;
-}
-
-.inline-reply-button {
-    font-size: 0.5rem !important;
-    margin-left: 4px !important;
-    background: @bg !important;
-    border: 1px solid @border !important;
-    border-radius: 0 !important;
-    color: @fg !important;
-}
-
-.body-image {
-    margin-top: 6px !important;
-    color: @fg !important;
-    border-radius: 0 !important;
-}
-
-.summary {
-    font-size: 1rem !important;
-    font-weight: bold !important;
-    background: transparent !important;
-    color: @fg !important;
-    text-shadow: none !important;
-}
-
-.time {
-    font-size: 1rem !important;
-    font-weight: bold !important;
-    background: transparent !important;
-    color: @gray !important;
-    text-shadow: none !important;
-    margin-right: 18px !important;
-}
-
-.body {
-    font-size: 1rem !important;
-    font-weight: bold !important;
-    background: transparent !important;
-    color: @fg !important;
-    text-shadow: none !important;
-}
-
-.control-center {
-    background: @bg !important;
-    border: 1px solid @border !important;
-    color: @fg !important;
-    border-radius: 0 !important;
-}
-
-.control-center-list {
-    background: transparent !important;
-}
-
+/* --- Notification window --- */
 .floating-notifications {
-    background: transparent !important;
+    background: transparent;
 }
 
 .blank-window {
-    background: alpha(black, 0.1) !important;
+    background: alpha(black, 0.1);
 }
 
-.widget-title {
-    color: @fg !important;
-    background: @bg-alt !important;
-    padding: 3px 6px !important;
-    margin: 5px !important;
-    font-size: 1rem !important;
-    border-radius: 0 !important;
+/* --- Notification --- */
+.notification {
+    padding: 8px 12px;
+    border: 1px solid;
+    border-radius: 0;
 }
 
-.widget-title>button {
-    font-size: 0.75rem !important;
-    color: @fg !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    border: 1px solid @border !important;
+.notification-default-action {
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
 }
 
-.widget-title>button:hover {
-    background: @fg !important;
-    color: @bg !important;
+.notification-default-action:not(:only-child) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
-.widget-dnd {
-    background: @bg-alt !important;
-    padding: 3px 6px !important;
-    margin: 5px !important;
-    border-radius: 0 !important;
-    font-size: 0.5rem !important;
-    color: @gray !important;
+/* --- Close button --- */
+.close-button {
+    padding: 0;
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: 0;
+    margin-top: 4px;
+    margin-right: 4px;
+    box-shadow: none;
+    border: none;
 }
 
-.widget-dnd>switch {
-    border-radius: 0 !important;
-    border: 1px solid @blue !important;
-    background: @border !important;
+.close-button:hover {
+    box-shadow: none;
+    border: none;
 }
 
-.widget-dnd>switch:checked {
-    background: @green !important;
-    border: 1px solid @green !important;
+/* --- Notification actions --- */
+.notification-action {
+    border: 1px solid;
+    border-top: none;
+    border-radius: 0;
 }
 
-.widget-dnd>switch slider {
-    background: @bg !important;
-    border-radius: 0 !important;
+.notification-action:first-child {
+    border-bottom-left-radius: 0;
 }
 
-.widget-dnd>switch:checked slider {
-    background: @bg !important;
-    border-radius: 0 !important;
+.notification-action:last-child {
+    border-bottom-right-radius: 0;
 }
 
-.widget-label>label {
-    font-size: 1rem !important;
-    color: @fg !important;
+/* --- Notification content --- */
+.summary {
+    font-size: 1rem;
+    font-weight: bold;
+    background: transparent;
+    text-shadow: none;
 }
 
-.widget-mpris {
-    color: @fg !important;
-    background: @bg-alt !important;
-    padding: 3px 6px !important;
-    margin: 5px !important;
-    border-radius: 0 !important;
+.time {
+    font-size: 1rem;
+    font-weight: bold;
+    background: transparent;
+    text-shadow: none;
+    margin-right: 18px;
 }
 
-.widget-mpris > box > button {
-    border-radius: 0 !important;
+.body {
+    font-size: 1rem;
+    font-weight: normal;
+    background: transparent;
+    text-shadow: none;
 }
 
-.widget-mpris-player {
-    padding: 3px 6px !important;
-    margin: 5px !important;
+.body-image {
+    margin-top: 6px;
+    border-radius: 0;
 }
 
-.widget-mpris-title {
-    font-weight: 100 !important;
-    font-size: 1rem !important;
+/* --- Inline reply --- */
+.inline-reply-entry {
+    border: 1px solid;
+    border-radius: 0;
 }
 
-.widget-mpris-subtitle {
-    font-size: 0.75rem !important;
+.inline-reply-button {
+    font-size: 0.75rem;
+    margin-left: 4px;
+    border: 1px solid;
+    border-radius: 0;
 }
 
-.widget-buttons-grid {
-    font-size: large !important;
-    color: @aqua !important;
-    padding: 2px !important;
-    margin: 5px !important;
-    border-radius: 0 !important;
-    background: @bg-alt !important;
+/* --- Control center --- */
+.control-center {
+    border: 1px solid;
+    border-radius: 0;
 }
 
-.widget-buttons-grid>flowbox>flowboxchild>button {
-    margin: 1px !important;
-    background: @bg !important;
-    border-radius: 0 !important;
-    color: @fg !important;
+.control-center-list {
+    background: transparent;
 }
 
-.widget-buttons-grid>flowbox>flowboxchild>button:hover {
-    background: @fg !important;
-    color: @bg !important;
-}
-
-.widget-volume {
-    background: @bg-alt !important;
-    padding: 2px !important;
-    margin: 10px 10px 5px 10px !important;
-    border-radius: 0 !important;
-    font-size: x-large !important;
-    color: @fg !important;
-}
-
-.widget-volume>box>button {
-    background: @border !important;
-    border: none !important;
-}
-
-.per-app-volume {
-    background-color: @bg !important;
-    padding: 4px 8px 8px !important;
-    margin: 0 8px 8px !important;
-    border-radius: 0 !important;
-    color: @fg !important;
-}
-
-.widget-backlight {
-    background: @bg-alt !important;
-    padding: 5px !important;
-    margin: 10px 10px 5px 10px !important;
-    border-radius: 0 !important;
-    font-size: x-large !important;
-    color: @fg !important;
+.control-center .notification-row {
+    outline: none;
 }
 
 .control-center .notification-row:focus,
 .control-center .notification-row:hover {
-    opacity: 1 !important;
-    background: @bg-alt !important;
-    border-radius: 0 !important;
+    opacity: 1;
+    border-radius: 0;
 }
 
-.notification-row {
-    outline: none !important;
+/* --- Widget: Title --- */
+.widget-title {
+    padding: 6px 8px;
+    margin: 4px;
+    border-radius: 0;
+}
+
+.widget-title > button {
+    font-size: 0.75rem;
+    border-radius: 0;
+    border: 1px solid;
+}
+
+/* --- Widget: DND --- */
+.widget-dnd {
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 0;
+    font-size: 0.85rem;
+}
+
+.widget-dnd > switch {
+    border-radius: 0;
+    border: 1px solid;
+}
+
+.widget-dnd > switch slider {
+    border-radius: 0;
+}
+
+/* --- Widget: MPRIS --- */
+.widget-mpris {
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 0;
+}
+
+.widget-mpris > box > button {
+    border-radius: 0;
+}
+
+.widget-mpris-player {
+    padding: 4px 8px;
+    margin: 4px;
+}
+
+.widget-mpris-title {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.widget-mpris-subtitle {
+    font-size: 0.85rem;
+}
+
+/* --- Widget: Buttons grid --- */
+.widget-buttons-grid {
+    padding: 4px;
+    margin: 4px;
+    border-radius: 0;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button {
+    margin: 1px;
+    border-radius: 0;
+}
+
+/* --- Widget: Volume --- */
+.widget-volume {
+    padding: 4px;
+    margin: 8px;
+    border-radius: 0;
+}
+
+.widget-volume > box > button {
+    border: none;
+}
+
+/* --- Widget: Backlight --- */
+.widget-backlight {
+    padding: 4px;
+    margin: 8px;
+    border-radius: 0;
+}
+
+/* --- Per-app volume --- */
+.per-app-volume {
+    padding: 4px 8px 8px;
+    margin: 0 8px 8px;
+    border-radius: 0;
 }

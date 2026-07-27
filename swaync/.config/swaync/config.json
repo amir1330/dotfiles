@@ -20,8 +20,8 @@
   "timeout-low": 3,
   "timeout-critical": 0,
   "fit-to-screen": false,
-  "control-center-width": 450,
-  "control-center-height": 720,
+  "control-center-width": 400,
+  "control-center-height": 600,
   "keyboard-shortcuts": true,
   "image-visibility": "when-available",
   "transition-time": 200,
@@ -30,7 +30,6 @@
   "script-fail-notify": true,
   "widgets": [
       "dnd",
-      "buttons-grid",
       "mpris",
       "volume",
       "backlight",
@@ -46,10 +45,6 @@
       "dnd": {
           "text": "Do Not Disturb"
       },
-      "label": {
-          "max-lines": 1,
-          "text": "Notification"
-      },
       "mpris": {
           "image-size": 96,
           "image-radius": 0
@@ -59,30 +54,6 @@
       },
       "backlight": {
           "label": "󰃟"
-      },
-      "buttons-grid": {
-          "actions": [
-              {
-                  "label": "󰐥",
-                  "command": "wlogout"
-              },
-              {
-                  "label": "󰌾",
-                  "command": "swaylock"
-              },
-              {
-                  "label": "󰍃",
-                  "command": "swaymsg exit"
-              },
-              {
-                  "label": "󰝟",
-                  "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-              },
-              {
-                  "label": "󰂯",
-                  "command": "blueman-manager"
-              }
-          ]
       }
   }
 }

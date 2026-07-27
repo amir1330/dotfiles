@@ -30,12 +30,12 @@ set $run rofi -show run | swaymsg
 set $browser qutebrowser
 set $fileexp thunar
 
-default_border pixel 2
-default_floating_border pixel 2
+default_border pixel 4
+default_floating_border pixel 4
 ### Output configuration
-output * bg ~/Wallpapers/wallpaper_12.jpeg fill 
+output * bg /home/amir1330/Wallpapers/7731934.png fill
 
-client.focused          $accent $accent $darkgray $accent $accent
+client.focused          $yellow $accent $darkgray $yellow $yellow
 client.focused_inactive $darkgray $darkgray $accent $darkgray $darkgray
 client.unfocused        $darkgray $darkgray $accent $darkgray $darkgray
 client.urgent           $red $red $accent $red $red
@@ -91,6 +91,9 @@ input type:pointer {
 
     #open cliphist in rofi dmenu
     bindsym --to-code $mod+v exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
+
+    # Wallpaper picker
+    bindsym --to-code $mod+Shift+w exec ~/.config/sway/scripts/wallpaper-picker.sh
     # night mode
     bindsym --to-code $mod+Ctrl+Shift+n exec wlsunset -T 5000
     # disable nightmode

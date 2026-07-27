@@ -1,4 +1,5 @@
 # Gruvbox Light — sway border colors
 set $accent #3c3836
 set $red #cc241d
+set $yellow #b57614
 set $darkgray #d5c4a1

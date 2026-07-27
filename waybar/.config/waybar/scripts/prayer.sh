@@ -94,7 +94,13 @@ MINS_LEFT=$(( DIFF_MIN % 60 ))
 TEXT="${NEXT_NAME} ${REMAINING}"
 
 # Tooltip: full table
-TOOLTIP="<b>${CITY} \u2014 Today</b>\n━━━━━━━━━━━━━━━━\n"
+# Truncate city name for tooltip
+if (( ${#CITY} > 10 )); then
+    CITY_SHORT="${CITY:0:10}..."
+else
+    CITY_SHORT="$CITY"
+fi
+TOOLTIP="<b>${CITY_SHORT} \u2014 Today</b>\n━━━━━━━━━━━━━━━━\n"
 
 for i in 0 1 2 3 4; do
     name="${NAMES[$i]}"

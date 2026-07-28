@@ -66,6 +66,7 @@ stow -t ~ */
 | `$mod+Ctrl+Shift+n` | wlsunset on |
 | `$mod+Ctrl+Alt+n` | wlsunset off |
 | `$mod+Shift+c` | reload config |
+| `$mod+/` | show keybind cheatsheet |
 | `$mod+Shift+q` | exit sway |
 
 ### Navigation

@@ -8,7 +8,7 @@ Sway + Gruvbox dotfiles managed with GNU Stow.
 |---|---|
 | WM | Sway |
 | Shell | Bash, Fish |
-| Terminal | Kitty, Ghostty |
+| Terminal | Kitty |
 | Launcher | Rofi |
 | Bar | Waybar |
 | Notifications | SwayNC |

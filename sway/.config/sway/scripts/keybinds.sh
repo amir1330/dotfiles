@@ -1,2 +1,2 @@
 #!/bin/sh
-sed -n '/^[^>]/p' ~/.config/sway/keybinds.md | rofi -dmenu -i -p "Keybinds" -no-custom -lines 50
+sed '/^>/d' ~/.config/sway/keybinds.md | yad --text-info --width=800 --height=700 --title="Keybinds" --fontname="monospace 10" --wrap --no-buttons --center

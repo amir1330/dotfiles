@@ -269,6 +269,7 @@ bindsym --to-code $mod+r mode "resize"
     for_window [app_id="org.telegram.desktop"] floating enable
     for_window [class="xdman-Main"] floating enable
     for_window [class="Windscribe"] floating enable
+    for_window [title="Keybinds"] floating enable, move position center
 #
 # Status Bar:
 #

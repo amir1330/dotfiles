@@ -78,7 +78,7 @@
     "format-ethernet": "{ipaddr}/{cidr}",
     "format-disconnected": "offline",
     "tooltip-format": "{ifname} via {gwaddr}",
-    "on-click": "kitty nmtui",
+    "on-click": "kitty --class nmtui nmtui",
     "max-length": 30,
     "tooltip": false
   },

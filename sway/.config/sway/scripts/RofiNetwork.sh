@@ -15,7 +15,7 @@ if [ -z "$wifi_iface" ]; then
 fi
 
 if [ "$1" = "--nmtui" ]; then
-  kitty nmtui
+  kitty --class nmtui nmtui
   exit 0
 fi
 

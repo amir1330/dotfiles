@@ -7,7 +7,8 @@ exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id blueman-applet
-
+exec --no-startup-id udiskie
+exec --no-startup-id wayvnc 127.0.0.1 5900
 include ~/.config/sway/theme-colors
 set $yellow #d79921
 
@@ -32,7 +33,7 @@ set $fileexp thunar
 default_border pixel 4
 default_floating_border pixel 4
 ### Output configuration
-output * bg /home/amir1330/Wallpapers/7731799.png fill
+output * bg /home/amir1330/Wallpapers/wallpaper_3.png fill
 
 client.focused          $yellow $accent $darkgray $yellow $yellow
 client.focused_inactive $darkgray $darkgray $accent $darkgray $darkgray
@@ -241,27 +242,18 @@ bindsym --to-code $mod+r mode "resize"
 
     # Special key to take a screenshot with grim
 
-### Screenshot mode:
-
-    set $screenshot "Screenshot: [s]creen [w]window [r]egion [f]reeze [R]ecord"
+### Screenshot shortcuts:
 
     set $screenshot-cmd ~/.config/sway/screenshot.sh
 
-    mode $screenshot {
-        bindsym --to-code s mode "default", exec $screenshot-cmd screen
-        bindsym --to-code w mode "default", exec $screenshot-cmd window 
-        bindsym --to-code r mode "default", exec $screenshot-cmd region 
-        bindsym --to-code f mode "default", exec $screenshot-cmd freeze
-        bindsym --to-code Shift+r mode "default", exec gpu-screen-recoder-gtk
+    # Print: fullscreen
+    bindsym --to-code Print exec $screenshot-cmd screen
 
-        bindsym --to-code Return mode "default"
-        bindsym --to-code Escape mode "default"
-    }
+    # Win+Shift+S: region
+    bindsym --to-code $mod+Shift+s exec $screenshot-cmd region
 
-    bindsym --to-code Print mode $screenshot
-
-    # Win+Shift+S: freeze screen then select region
-    bindsym --to-code $mod+Shift+s exec $screenshot-cmd freeze
+    # Win+Ctrl+S: window
+    bindsym --to-code $mod+Ctrl+s exec $screenshot-cmd window
 
     # window rules
     for_window [app_id="org.gnome.Characters"] floating enable
@@ -270,6 +262,8 @@ bindsym --to-code $mod+r mode "resize"
     for_window [class="xdman-Main"] floating enable
     for_window [class="Windscribe"] floating enable
     for_window [title="Keybinds"] floating enable, move position center
+    for_window [app_id="blueman-manager"] floating enable, resize set 900 600, move position center
+    for_window [app_id="nmtui"] floating enable, resize set 900 600, move position center
 #
 # Status Bar:
 #

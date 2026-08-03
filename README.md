@@ -40,6 +40,23 @@ stow -t ~ */
 - `screenshot.sh` -- screen/window/region/freeze screenshots
 - `screenshot` -- region screenshot via grim+slurp
 
+## Maintenance
+
+Helper scripts live in `scripts/.scripts` and are exposed on `PATH` via `~/.scripts`.
+
+- `setup-health` -- audits the setup: broken symlinks, empty stow packages, uncommitted
+  dotfiles changes, unmanaged `~/.config` entries, secrets in tracked files, and required
+  tools. Prints `PASS`/`WARN`/`FAIL` per check and exits non-zero on any `FAIL`.
+- `setup-inventory` -- writes `~/setup-inventory.md` (override with `SETUP_INVENTORY_OUT`):
+  OS/desktop, stow packages, toolchains, opencode providers, projects.
+- `setup-config-coverage` -- writes `~/.local/share/setup-config-coverage.md` classifying each
+  `~/.config` entry as stow-managed, app-managed, or unmanaged (with adoption hints).
+
+The allowlist of app-managed config entries is curated in
+`scripts/.scripts/setup-allowlist.sh`; add/remove names there to tune the reports.
+
+Run `setup-health` after changing dotfiles to confirm the setup stays healthy.
+
 ## Keybinds
 
 `$mod` = Super.
@@ -57,7 +74,8 @@ stow -t ~ */
 | `$mod+z` | wlogout |
 | `$mod+v` | cliphist |
 | `$mod+Shift+w` | wallpaper picker |
-| `$mod+Shift+s` | freeze region screenshot |
+| `$mod+Shift+s` | select region screenshot |
+| `$mod+Ctrl+s` | active window screenshot |
 | `$mod+f` | fullscreen |
 | `$mod+Shift+f` | toggle float |
 | `$mod+a` | focus parent |
@@ -86,14 +104,13 @@ stow -t ~ */
 | `$mod+1-9,0` | switch to workspace 1-10 |
 | `$mod+Shift+1-9,0` | move window to workspace 1-10 |
 
-### Screenshot mode (Press `Print`)
+### Screenshot
 
 | Key | Action |
 |---|---|
-| `s` | full screen |
-| `w` | active window |
-| `r` | region |
-| `f` | freeze then region |
+| `Print` | full screen |
+| `$mod+Shift+s` | region |
+| `$mod+Ctrl+s` | active window |
 
 ### Media
 

@@ -17,8 +17,6 @@ configuration {
 	window-format:              "{w} · {c} · {t}";
 }
 
-/* ---- Load wallust colors ---- */
-@theme "~/.config/rofi/wallust/colors-rofi.rasi"
 
 /* ---- Global Properties ---- */
 * {

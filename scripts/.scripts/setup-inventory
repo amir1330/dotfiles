@@ -1,0 +1,147 @@
+#!/usr/bin/env bash
+# setup-inventory -- generate a markdown inventory of this machine's setup.
+# Output path overridable via SETUP_INVENTORY_OUT.
+set -u
+
+HOME_DIR="${HOME:-$(command eval "echo ~")}"
+DOTFILES="${DOTFILES_DIR:-$HOME_DIR/dotfiles}"
+PROJECTS_DIR="$HOME_DIR/projects"
+CONFIG_DIR="$HOME_DIR/.config"
+OUT="${SETUP_INVENTORY_OUT:-$HOME_DIR/setup-inventory.md}"
+
+declare -A PKG_PURPOSE=(
+  [ags]="AGS/Astal desktop shell widgets"
+  [bash]="bash shell config (rc/profile)"
+  [btop]="system monitor"
+  [cava]="audio visualizer"
+  [fastfetch]="system fetch info"
+  [fish]="fish shell config"
+  [git]="git config"
+  [gtk]="GTK3 theme settings"
+  [gtk4]="GTK4 theme settings"
+  [kitty]="kitty terminal"
+  [libinput]="libinput-gestures config"
+  [mpd]="music player daemon"
+  [nvim]="Neovim editor"
+  [opencode]="opencode CLI config"
+  [openspec]="openspec CLI config"
+  [qt]="Qt5/Qt6 theme settings"
+  [rofi]="rofi launcher"
+  [scripts]="helper scripts on PATH via ~/.scripts"
+  [starship]="starship prompt"
+  [swappy]="screenshot annotation"
+  [sway]="Sway WM config"
+  [swaylock]="sway lockscreen"
+  [swaync]="notification daemon"
+  [Thunar]="Thunar file manager"
+  [waybar]="Waybar status bar"
+  [wlogout]="logout menu"
+)
+
+tc() {
+  local label="$1"
+  shift
+  if command -v "$1" >/dev/null 2>&1; then
+    printf -- '- %s: ' "$label"
+    "$@" 2>&1 | head -n1
+  else
+    printf '%s\n' "- $label: not installed"
+  fi
+}
+
+tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
+
+{
+  echo "# Machine Setup Inventory"
+  echo
+  echo "_Generated: $(date '+%Y-%m-%d %H:%M %Z')_"
+  echo
+
+  echo "## OS / Desktop"
+  echo
+  if [ -r /etc/os-release ]; then
+    . /etc/os-release
+    printf '%s\n' "- OS: ${PRETTY_NAME:-$NAME}"
+  else
+    echo "- OS: unknown (no /etc/os-release)"
+  fi
+  printf '%s\n' "- Kernel: $(uname -r)"
+  printf '%s\n' "- Hostname: $(uname -n)"
+  echo "- Desktop stack: Sway (WM), Kitty (terminal), Rofi (launcher), Waybar (bar), SwayNC (notifications), Swaylock (lockscreen), Wlogout (logout), Neovim (editor), Starship (prompt), Wallust (color gen), Thunar (files)"
+  echo
+
+  echo "## Stow packages (\$HOME/dotfiles)"
+  echo
+  echo "| Package | Purpose | Status |"
+  echo "|---|---|---|"
+  while IFS= read -r pkg; do
+    [ -z "$pkg" ] && continue
+    name="$(basename "$pkg")"
+    status="ok"
+    if [ -z "$(ls -A "$pkg")" ]; then
+      status="empty"
+    fi
+    printf '| %s | %s | %s |\n' "$name" "${PKG_PURPOSE[$name]:----}" "$status"
+  done < <(printf '%s\n' "$DOTFILES"/*/)
+  echo
+
+  echo "## Language toolchains"
+  echo
+  tc "Rust" rustc --version
+  tc "Cargo" cargo --version
+  tc "Node.js" node --version
+  tc "npm" npm --version
+  tc "Yarn" yarn --version
+  tc "Bun" bun --version
+  tc ".NET" dotnet --version
+  tc "Java" java --version
+  tc "Go" go version
+  tc "Python" python3 --version
+  tc "Git" git --version
+  tc "GNU Stow" stow --version
+  tc "OpenSpec" openspec --version
+  echo
+
+  echo "## AI config stack (opencode)"
+  echo
+  if [ -r "$CONFIG_DIR/opencode/opencode.json" ]; then
+    python3 - "$CONFIG_DIR/opencode/opencode.json" <<'PY'
+import json, sys
+try:
+    cfg = json.load(open(sys.argv[1]))
+except Exception as e:
+    print(f"  (unable to read opencode.json: {e})")
+    sys.exit(0)
+provs = cfg.get("provider", {})
+if not provs:
+    print("  (no providers configured)")
+    sys.exit(0)
+for pid, p in provs.items():
+    print(f"- {p.get('name', pid)} ({pid})")
+    for mid, m in (p.get("models", {}) or {}).items():
+        print(f"  - {m.get('name', mid)}")
+PY
+  else
+    echo "  (no opencode.json at $CONFIG_DIR/opencode/opencode.json)"
+  fi
+  echo
+
+  echo "## Projects (\$HOME/projects)"
+  echo
+  if [ -d "$PROJECTS_DIR" ]; then
+    n=0
+    while IFS= read -r d; do
+      [ -d "$d" ] || continue
+      printf '%s\n' "- $(basename "$d")"
+      n=$((n + 1))
+    done < <(printf '%s\n' "$PROJECTS_DIR"/*/)
+    [ "$n" -eq 0 ] && echo "  (no project directories)"
+  else
+    echo "  (no $PROJECTS_DIR directory)"
+  fi
+} > "$tmp"
+
+mkdir -p "$(dirname "$OUT")"
+mv "$tmp" "$OUT"
+printf 'Wrote inventory to %s\n' "$OUT"

@@ -13,4 +13,5 @@ alias nv nvim
 abbr mkdir "mkdir -p"
 
 set -Ua fish_user_paths ~/.yarn/bin
+fish_add_path ~/.scripts
 set -gx GPG_TTY (tty)

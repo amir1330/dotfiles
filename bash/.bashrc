@@ -10,3 +10,6 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 
 . "$HOME/.local/bin/env"
+
+# helper scripts (screenshot, setup-health, ...)
+export PATH="$HOME/.scripts:$PATH"

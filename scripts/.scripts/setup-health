@@ -1,0 +1,186 @@
+#!/usr/bin/env bash
+# setup-health -- audit this machine's setup and print PASS/WARN/FAIL per check.
+# Exits non-zero if any check FAILs.
+set -u
+
+HOME_DIR="${HOME:-$(command eval "echo ~")}"
+DOTFILES="${DOTFILES_DIR:-$HOME_DIR/dotfiles}"
+ALLOWLIST_SRC="$DOTFILES/scripts/.scripts/setup-allowlist.sh"
+
+[ -r "$ALLOWLIST_SRC" ] && . "$ALLOWLIST_SRC"
+
+fail_count=0
+warn_count=0
+
+report() {
+  local status="$1" check="$2"
+  shift 2
+  printf '%-5s %-20s %s\n' "$status" "$check" "$*"
+  case "$status" in
+    FAIL) fail_count=$((fail_count + 1)) ;;
+    WARN) warn_count=$((warn_count + 1)) ;;
+  esac
+}
+
+setup_in_list() {
+  printf '%s\n' "$2" | grep -Fxq "$1"
+}
+
+# ---------------------------------------------------------------------------
+# Symlink integrity
+# ---------------------------------------------------------------------------
+check_symlinks() {
+  local found=0 name target
+  while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    found=1
+    name="${line%% -> *}"
+    target="${line#* -> }"
+    case "$name" in
+      "$HOME_DIR/.steampid" | "$HOME_DIR/.steampath")
+        report WARN "symlinks" "$name -> $target (Steam not running)"
+        ;;
+      "$HOME_DIR/.config/ghostty")
+        report WARN "symlinks" "$name -> $target (orphaned, package removed; remove with: rm \"$name\")"
+        ;;
+      *)
+        report FAIL "symlinks" "$name -> $target (broken)"
+        ;;
+    esac
+  done < <(find "$HOME_DIR" "$HOME_DIR/.config" -maxdepth 1 -type l ! -exec test -e {} \; -printf '%p -> %l\n' 2>/dev/null | sort)
+  [ "$found" -eq 0 ] && report PASS "symlinks" "no broken symlinks under \$HOME"
+}
+
+# ---------------------------------------------------------------------------
+# Stow package integrity
+# ---------------------------------------------------------------------------
+check_stow_packages() {
+  local pkg
+  for pkg in "$DOTFILES"/*/; do
+    [ -d "$pkg" ] || continue
+    if [ -z "$(ls -A "$pkg")" ]; then
+      report FAIL "stow-packages" "package '$(basename "$pkg")' is empty"
+    fi
+  done
+  if (cd "$DOTFILES" && stow -n -t "$HOME_DIR" */ >/dev/null 2>&1); then
+    report PASS "stow-packages" "stow dry-run clean"
+  else
+    local conflicts
+    conflicts="$(cd "$DOTFILES" && stow -n -t "$HOME_DIR" */ 2>&1 || true)"
+    report FAIL "stow-packages" "stow dry-run conflict: $(printf '%s' "$conflicts" | head -5 | tr '\n' '; ')"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Dotfiles repo hygiene
+# ---------------------------------------------------------------------------
+check_repo_hygiene() {
+  if [ ! -d "$DOTFILES/.git" ]; then
+    report WARN "dotfiles-repo" "$DOTFILES is not a git repo"
+    return
+  fi
+  local dirty
+  dirty="$(git -C "$DOTFILES" status --porcelain)"
+  if [ -z "$dirty" ]; then
+    report PASS "dotfiles-repo" "clean"
+  else
+    report WARN "dotfiles-repo" "uncommitted/untracked changes:"$'\n'"$(printf '%s' "$dirty" | sed 's/^/    /')"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Config coverage
+# ---------------------------------------------------------------------------
+check_config_coverage() {
+  local owned="" pkg entry found=0 unmanaged=""
+  for pkg in "$DOTFILES"/*/; do
+    [ -d "$pkg/.config" ] || continue
+    while IFS= read -r entry; do
+      [ -z "$entry" ] && continue
+      owned="$owned
+$(basename "$entry")"
+    done < <(find "$pkg/.config" -maxdepth 1 -mindepth 1)
+  done
+  for entry in "$HOME_DIR/.config"/*; do
+    [ -e "$entry" ] || [ -L "$entry" ] || continue
+    local name
+    name="$(basename "$entry")"
+    if setup_in_list "$name" "$owned"; then continue; fi
+    if [ -n "${SETUP_APP_MANAGED_CONFIGS:-}" ] && setup_in_list "$name" "$SETUP_APP_MANAGED_CONFIGS"; then continue; fi
+    found=1
+    unmanaged="$unmanaged
+    $name"
+  done
+  if [ "$found" -eq 0 ]; then
+    report PASS "config-coverage" "all ~/.config entries are stow-owned or app-managed"
+  else
+    report WARN "config-coverage" "unmanaged ~/.config entries:$unmanaged"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Secret hygiene
+# ---------------------------------------------------------------------------
+check_secrets() {
+  local hits
+  hits="$(cd "$DOTFILES" && git grep -n -I -E \
+    'BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}' \
+    -- . 2>/dev/null)"
+  if [ -z "$hits" ]; then
+    report PASS "secrets" "no secret-like content in tracked dotfiles"
+  else
+    report FAIL "secrets" "potential secrets in tracked files:"$'\n'"$(printf '%s\n' "$hits" | sed 's/^/    /')"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Required tooling
+# ---------------------------------------------------------------------------
+check_tooling() {
+  local tool missing="" required="sway kitty waybar nvim starship stow git"
+  for tool in $required; do
+    command -v "$tool" >/dev/null 2>&1 || missing="$missing $tool"
+  done
+  if [ -z "$missing" ]; then
+    report PASS "tooling" "required tools present"
+  else
+    report WARN "tooling" "missing from PATH:$missing"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Regression checks (previously-fixed defects must not return)
+# ---------------------------------------------------------------------------
+check_regressions() {
+  local stale found=0
+  if [ -d "$DOTFILES/wallust" ] && [ -z "$(ls -A "$DOTFILES/wallust")" ]; then
+    found=1
+    report FAIL "regressions" "empty dotfiles/wallust package still present"
+  fi
+  stale="$(cd "$DOTFILES" && git grep -n -I -E \
+    'colors-cava|colors-ghostty|colors-hyprland|colors-kitty|colors-rofi|colors-swaync|colors-waybar|qml_color|01-Wallust' \
+    -- . 2>/dev/null)"
+  if [ -n "$stale" ]; then
+    found=1
+    report FAIL "regressions" "stale wallust/kitty theme template references:"$'\n'"$(printf '%s\n' "$stale" | sed 's/^/    /')"
+  fi
+  [ "$found" -eq 0 ] && report PASS "regressions" "no known-defect regressions"
+}
+
+main() {
+  check_symlinks
+  check_stow_packages
+  check_repo_hygiene
+  check_config_coverage
+  check_secrets
+  check_tooling
+  check_regressions
+
+  local overall="PASS"
+  [ "$warn_count" -gt 0 ] && overall="PASS (with warnings)"
+  [ "$fail_count" -gt 0 ] && overall="FAIL"
+  printf '\nOverall: %s  (%d FAIL, %d WARN)\n' "$overall" "$fail_count" "$warn_count"
+  [ "$fail_count" -eq 0 ]
+}
+
+main "$@"

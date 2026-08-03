@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+# setup-config-coverage -- report which ~/.config entries are stow-managed,
+# app-managed (allowlisted), or unmanaged. Writes a markdown report to
+# $HOME/.local/share/setup-config-coverage.md (override via SETUP_COVERAGE_OUT).
+set -u
+
+HOME_DIR="${HOME:-$(command eval "echo ~")}"
+DOTFILES="${DOTFILES_DIR:-$HOME_DIR/dotfiles}"
+ALLOWLIST_SRC="$DOTFILES/scripts/.scripts/setup-allowlist.sh"
+OUT="${SETUP_COVERAGE_OUT:-$HOME_DIR/.local/share/setup-config-coverage.md}"
+
+[ -r "$ALLOWLIST_SRC" ] && . "$ALLOWLIST_SRC"
+
+setup_in_list() {
+  printf '%s\n' "$2" | grep -Fxq "$1"
+}
+
+declare -A OWNER
+while IFS= read -r pkg; do
+  [ -d "$pkg/.config" ] || continue
+  pkgname="$(basename "$pkg")"
+  while IFS= read -r entry; do
+    [ -z "$entry" ] && continue
+    OWNER["$(basename "$entry")"]="$pkgname"
+  done < <(find "$pkg/.config" -maxdepth 1 -mindepth 1)
+done < <(printf '%s\n' "$DOTFILES"/*/)
+
+managed=""
+app_managed=""
+unmanaged=""
+while IFS= read -r entry; do
+  [ -z "$entry" ] && continue
+  name="$(basename "$entry")"
+  if [ -n "${OWNER[$name]:-}" ]; then
+    managed="$managed
+- $name (package: ${OWNER[$name]})"
+  elif [ -n "${SETUP_APP_MANAGED_CONFIGS:-}" ] && setup_in_list "$name" "$SETUP_APP_MANAGED_CONFIGS"; then
+    app_managed="$app_managed
+- $name"
+  else
+    unmanaged="$unmanaged
+- $name"
+  fi
+done < <(printf '%s\n' "$HOME_DIR/.config"/*)
+
+tmp="$(mktemp)"
+trap 'rm -f "$tmp"' EXIT
+
+{
+  echo "# Config Coverage"
+  echo
+  echo "_Generated: $(date '+%Y-%m-%d %H:%M %Z')_"
+  echo
+  echo "## Managed by stow"
+  echo
+  printf '%s\n\n' "${managed:-  (none)}"
+  echo "## App-managed (allowlisted)"
+  echo
+  printf '%s\n\n' "${app_managed:-  (none)}"
+  echo "## Unmanaged (candidates for adoption)"
+  echo
+  if [ -n "$unmanaged" ]; then
+    printf '%s\n' "$unmanaged"
+    echo
+    echo "Adoption hint for an unmanaged entry:"
+    echo '    mkdir -p dotfiles/<name>/.config/<name>'
+    echo '    mv ~/.config/<name> dotfiles/<name>/.config/'
+    echo '    stow -t ~ <name>'
+    echo
+    echo "Remove an orphaned broken symlink instead with:  rm ~/.config/<name>"
+  else
+    echo "  (none)"
+  fi
+} > "$tmp"
+
+mkdir -p "$(dirname "$OUT")"
+mv "$tmp" "$OUT"
+printf 'Wrote config coverage report to %s\n' "$OUT"

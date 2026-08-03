@@ -18,8 +18,6 @@ configuration {
     me-accept-entry:            "MousePrimary";
 }
 
-/* ---- Load wallust colors ---- */
-@theme "~/.config/rofi/wallust/colors-rofi.rasi"
 
 /*****----- Global Properties -----*****/
 * {

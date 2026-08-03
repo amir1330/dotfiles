@@ -12,7 +12,6 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@theme "~/.config/rofi/wallust/colors-rofi.rasi"
 
 /*****----- Global Properties -----*****/
 * {

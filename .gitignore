@@ -7,3 +7,7 @@
 __pycache__
 *.pyc
 node_modules
+# generated local artifacts (setup-inventory / setup-config-coverage)
+setup-inventory.md
+setup-config-coverage.md
+.local/share/setup-config-coverage.md

@@ -87,7 +87,7 @@ input type:pointer {
     # Start fileexplorer
     bindsym --to-code $mod+e exec $fileexp
     # Start swaylock
-    bindsym --to-code $mod+z exec wlogout
+    bindsym --to-code $mod+z exec ~/.config/sway/scripts/lock.sh
 
     #open cliphist in rofi dmenu
     bindsym --to-code $mod+v exec cliphist list | rofi -dmenu | cliphist decode | wl-copy

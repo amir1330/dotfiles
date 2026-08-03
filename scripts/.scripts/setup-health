@@ -159,7 +159,7 @@ check_regressions() {
   fi
   stale="$(cd "$DOTFILES" && git grep -n -I -E \
     'colors-cava|colors-ghostty|colors-hyprland|colors-kitty|colors-rofi|colors-swaync|colors-waybar|qml_color|01-Wallust' \
-    -- . 2>/dev/null)"
+    -- . ':!scripts/.scripts/setup-health' ':!scripts/.scripts/setup-allowlist.sh' 2>/dev/null)"
   if [ -n "$stale" ]; then
     found=1
     report FAIL "regressions" "stale wallust/kitty theme template references:"$'\n'"$(printf '%s\n' "$stale" | sed 's/^/    /')"

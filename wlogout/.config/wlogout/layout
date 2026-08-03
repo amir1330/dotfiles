@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "swaylock",
+    "action" : "~/.config/sway/scripts/lock.sh",
     "text" : "[l] Lock",
     "keybind" : "l"
 }
@@ -30,7 +30,7 @@
 }
 {
     "label" : "suspend",
-    "action" : "swaylock & systemctl suspend",
+    "action" : "~/.config/sway/scripts/lock.sh & systemctl suspend",
     "text" : "[u] Suspend",
     "keybind" : "u"
 }

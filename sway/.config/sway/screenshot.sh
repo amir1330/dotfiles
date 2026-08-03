@@ -1,11 +1,11 @@
 #!/bin/sh
 
 case $1 in
-  screen) grim - | wl-copy;;
-  region) grim -g "$(slurp)" - | swappy -f - ;;
+  screen) grim - | ~/.config/sway/scripts/swappy-run.sh -f -;;
+  region) grim -g "$(slurp)" - | ~/.config/sway/scripts/swappy-run.sh -f - ;;
   window) grim -g "$(
     swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp
-  )" - | swappy -f - ;;
+  )" - | ~/.config/sway/scripts/swappy-run.sh -f - ;;
   freeze)
     DIR="$HOME/Pictures/Screenshots"
     mkdir -p "$DIR"

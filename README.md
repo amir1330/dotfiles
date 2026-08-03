@@ -140,6 +140,8 @@ stow -t ~ */
 | `Print` | full screen |
 | `$mod+Shift+s` | active window |
 
+The annotation window temporarily switches the keyboard layout to `us` so swappy's English shortcuts (`a`, `t`, `q`, etc.) work even if you were typing in `ru`.
+
 ### Media & brightness
 
 | Key | Action |

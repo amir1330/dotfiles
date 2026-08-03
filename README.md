@@ -45,14 +45,20 @@
 <details>
 <summary>📸 How to capture these screenshots</summary>
 
-1. Create the directory: `mkdir -p ~/dotfiles/screenshots`
-2. Take screenshots and save them as:
-   - `screenshots/desktop.png` — clean desktop with your favourite wallpaper
-   - `screenshots/rofi.png` — open the launcher with `$mod+d`
-   - `screenshots/waybar.png` — focus on the bar/tooltips
-   - `screenshots/kitty.png` — terminal showing neofetch/fastfetch or nvim
-   - `screenshots/wlogout.png` — open the logout menu with `$mod+z`
-3. Optimise the images (`oxipng`, `pngquant`, or ImageMagick) before committing.
+Run the helper script on your live Sway session:
+
+```sh
+~/.config/sway/scripts/capture-readme-screenshots.sh
+```
+
+It will write:
+- `screenshots/desktop.png` — clean desktop
+- `screenshots/rofi.png` — launcher
+- `screenshots/waybar.png` — status bar
+- `screenshots/kitty.png` — terminal with a fetch command
+- `screenshots/wlogout.png` — logout menu
+
+Optimise the images (`oxipng`, `pngquant`, or ImageMagick) before committing.
 
 </details>
 
@@ -132,8 +138,7 @@ stow -t ~ */
 | Key | Action |
 |---|---|
 | `Print` | full screen |
-| `$mod+Shift+s` | select region |
-| `$mod+Ctrl+s` | active window |
+| `$mod+Shift+s` | active window |
 
 ### Media & brightness
 

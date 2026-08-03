@@ -249,11 +249,8 @@ bindsym --to-code $mod+r mode "resize"
     # Print: fullscreen
     bindsym --to-code Print exec $screenshot-cmd screen
 
-    # Win+Shift+S: region
-    bindsym --to-code $mod+Shift+s exec $screenshot-cmd region
-
-    # Win+Ctrl+S: window
-    bindsym --to-code $mod+Ctrl+s exec $screenshot-cmd window
+    # Win+Shift+S: active window
+    bindsym --to-code $mod+Shift+s exec $screenshot-cmd window
 
     # window rules
     for_window [app_id="org.gnome.Characters"] floating enable

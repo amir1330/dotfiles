@@ -57,13 +57,15 @@ $mod+Shift+minus | move window to scratchpad
 $mod+r | enter resize mode
 (h/j/k/l or arrows inside mode) | resize window
 
-## Screenshot (Print then key)
+## Screenshot
 
-s | full screen
-w | active window
-r | select region
-f | freeze screen then select region
-$mod+Shift+s | freeze region (direct)
+Print | fullscreen
+$mod+Shift+s | active window
+
+## Screen recording
+
+$mod+Shift+r | toggle recording (desktop audio)
+$mod+Ctrl+r | toggle recording (mic + desktop audio)
 
 ## Media
 

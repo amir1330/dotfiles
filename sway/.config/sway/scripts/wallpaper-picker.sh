@@ -114,9 +114,12 @@ if [[ "$target" != "$current" ]]; then
     pkill -USR2 btop 2>/dev/null || true
 
     # reload sway (applies new border colors + re-reads wallpaper line we just sed'ed)
+    # sway does NOT restart waybar on reload if the bar command hasn't changed,
+    # so kill it first — sway will re-spawn it from the config on reload
+    killall waybar 2>/dev/null || true
     swaymsg reload
 
-    # ensure waybar is running (sway reload may restart it, but just in case)
+    # ensure waybar is running (sway should start it, but just in case)
     sleep 0.5
     pgrep -x waybar >/dev/null || waybar &
 

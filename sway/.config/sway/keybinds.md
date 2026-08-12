@@ -61,6 +61,7 @@ $mod+r | enter resize mode
 
 Print | fullscreen
 $mod+Shift+s | active window
+$mod+Ctrl+s | OCR selected region
 
 ## Screen recording
 

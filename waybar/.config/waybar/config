@@ -4,7 +4,8 @@
   "height": 34,
   "spacing": 0,
   "modules-left": [
-    "sway/workspaces"
+    "sway/workspaces",
+    "custom/recording"
   ],
   "modules-center": [
     "clock",
@@ -78,7 +79,7 @@
     "format-ethernet": "{ipaddr}/{cidr}",
     "format-disconnected": "offline",
     "tooltip-format": "{ifname} via {gwaddr}",
-    "on-click": "kitty --class nmtui nmtui",
+    "on-click": "kitty --class nmtui $HOME/.scripts/nmtui",
     "max-length": 30,
     "tooltip": false
   },
@@ -88,7 +89,7 @@
     "format-off": "bt",
     "format-on": "bt",
     "format-connected": "bt {num_connections}",
-    "on-click": "blueman-manager",
+    "on-click": "kitty --class bluetui bluetui",
     "tooltip": false
   },
   "battery": {
@@ -121,6 +122,13 @@
     "format": "󰐥",
     "tooltip": false,
     "on-click": "wlogout"
+  },
+  "custom/recording": {
+    "exec": "bash $HOME/.config/waybar/scripts/recording-timer.sh",
+    "return-type": "json",
+    "format": "{}",
+    "interval": 1,
+    "signal": 11
   },
   "custom/prayer": {
     "exec": "bash $HOME/.config/waybar/scripts/prayer.sh",

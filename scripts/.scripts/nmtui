@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export NEWT_COLORS="root=#3c3836,#fbf1c7 window=#3c3836,#ebdbb2 border=#928374,#ebdbb2 shadow=,#d5c4a1 title=#b57614,#ebdbb2 label=#3c3836,#ebdbb2 textbox=#3c3836,#ebdbb2 acttextbox=#fbf1c7,#458588 entry=#3c3836,#fbf1c7 disentry=#928374,#ebdbb2 button=#fbf1c7,#458588 actbutton=#3c3836,#d79921 compactbutton=#3c3836,#d5c4a1 checkbox=#3c3836,#ebdbb2 actcheckbox=#fbf1c7,#458588 listbox=#3c3836,#ebdbb2 actlistbox=#fbf1c7,#458588 sellistbox=#3c3836,#d79921 actsellistbox=#fbf1c7,#d65d0e helpline=#928374,#fbf1c7 emptyscale=,#d5c4a1 fullscale=,#458588"
+exec /usr/bin/nmtui "$@"

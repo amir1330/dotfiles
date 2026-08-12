@@ -23,6 +23,13 @@ tooltip label {
   color: @fg;
 }
 
+/* recording indicator */
+#custom-recording {
+  color: @red;
+  border-bottom-color: @red;
+  padding: 0 6px;
+}
+
 /* workspaces */
 #workspaces {
   margin-left: 8px;

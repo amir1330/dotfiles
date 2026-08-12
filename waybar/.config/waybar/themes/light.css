@@ -3,8 +3,8 @@
 @define-color fg #3c3836;
 @define-color bg-alt #ebdbb2;
 @define-color border #d5c4a1;
-@define-color gray #928374;
-@define-color gray-light #7c6f64;
+@define-color gray #7c6f64;
+@define-color gray-light #928374;
 @define-color yellow #b57614;
 @define-color red #cc241d;
 @define-color red-dark #9d0006;

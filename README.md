@@ -90,6 +90,14 @@ stow -t ~ */
 
 > You will need [GNU Stow](https://www.gnu.org/software/stow/) installed. After stowing, log out and back into Sway.
 
+### Dependencies
+
+The region OCR keybinding (`$mod+Ctrl+s`) needs Tesseract with English and Russian language data:
+
+```sh
+sudo pacman -S tesseract tesseract-data-eng tesseract-data-rus
+```
+
 ## ⌨️ Keybinds
 
 `$mod` = <kbd>Super</kbd>/<kbd>Win</kbd>.
@@ -139,8 +147,9 @@ stow -t ~ */
 |---|---|
 | `Print` | full screen |
 | `$mod+Shift+s` | active window |
+| `$mod+Ctrl+s` | OCR selected region (copy text to clipboard) |
 
-The annotation window temporarily switches the keyboard layout to `us` so swappy's English shortcuts (`a`, `t`, `q`, etc.) work even if you were typing in `ru`.
+The annotation window temporarily switches the keyboard layout to `us` so swappy's English shortcuts (`a`, `t`, `q`, etc.) work even if you were typing in `ru`. OCR uses Tesseract with English + Russian language data.
 
 ### Media & brightness
 
@@ -175,10 +184,10 @@ The allowlist of app-managed config entries is curated in [`scripts/.scripts/set
 | [`sway/scripts/lock.sh`](sway/.config/sway/scripts/lock.sh) | Switches keyboard layout to `us`, then runs `swaylock`. Called from the Wlogout lock and suspend buttons. |
 | [`sway/scripts/wallpaper-picker.sh`](sway/.config/sway/scripts/wallpaper-picker.sh) | Rofi wallpaper picker with full theme switch across the desktop. |
 | [`sway/scripts/workspace-nav.sh`](sway/.config/sway/scripts/workspace-nav.sh) | Smart workspace navigation. |
-| [`sway/scripts/RofiNetwork.sh`](sway/.config/sway/scripts/RofiNetwork.sh) | NetworkManager frontend in Rofi. |
 | [`sway/scripts/screenrecord.sh`](sway/.config/sway/scripts/screenrecord.sh) | Screen recording (desktop audio). |
 | [`sway/scripts/screenrecord-mic.sh`](sway/.config/sway/scripts/screenrecord-mic.sh) | Screen recording with mic + desktop audio. |
 | [`sway/scripts/screenshot.sh`](sway/.config/sway/screenshot.sh) | Screen/window/region/freeze screenshots. |
+| [`sway/scripts/ocr.sh`](sway/.config/sway/scripts/ocr.sh) | OCR a selected screen region with Tesseract and copy the text to the clipboard (`$mod+Ctrl+s`). |
 
 ## 🎨 Theme
 

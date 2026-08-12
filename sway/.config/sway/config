@@ -1,7 +1,6 @@
 exec --no-startup-id /usr/lib/xdg-desktop-portal -r
 exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
-exec nm-applet
 exec libinput-gestures -c .config/libinput-gestures/sway.conf
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
@@ -33,7 +32,7 @@ set $fileexp thunar
 default_border pixel 4
 default_floating_border pixel 4
 ### Output configuration
-output * bg /home/amir1330/Wallpapers/wallpaper_3.png fill
+output * bg /home/amir1330/Wallpapers/7731934.png fill
 
 client.focused          $yellow $accent $darkgray $yellow $yellow
 client.focused_inactive $darkgray $darkgray $accent $darkgray $darkgray
@@ -86,8 +85,8 @@ input type:pointer {
     bindsym --to-code $mod+b exec $browser
     # Start fileexplorer
     bindsym --to-code $mod+e exec $fileexp
-    # Start swaylock
-    bindsym --to-code $mod+z exec ~/.config/sway/scripts/lock.sh
+    # Start wlogout
+    bindsym --to-code $mod+z exec wlogout
 
     #open cliphist in rofi dmenu
     bindsym --to-code $mod+v exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
@@ -98,6 +97,10 @@ input type:pointer {
     bindsym --to-code $mod+Ctrl+Shift+n exec wlsunset -T 5000
     # disable nightmode
     bindsym --to-code $mod+Ctrl+Alt+n exec killall wlsunset
+
+    # Screen recording
+    bindsym --to-code $mod+Shift+r exec ~/.config/sway/scripts/screenrecord.sh
+    bindsym --to-code $mod+Ctrl+r exec ~/.config/sway/scripts/screenrecord-mic.sh
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -186,7 +189,7 @@ input type:pointer {
     # Swap focus between the tiling area and the floating area
 
     # Move focus to the parent container
-    bindsym --to-code $mod+a focus parent
+    # bindsym --to-code $mod+a focus parent
 #
 # Scratchpad:
 #
@@ -194,11 +197,11 @@ input type:pointer {
     # You can send windows there and get them back later.
 
     # Move the currently focused window to the scratchpad
-    bindsym --to-code $mod+Shift+minus move scratchpad
+    # bindsym --to-code $mod+Shift+minus move scratchpad
 
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym --to-code $mod+minus scratchpad show
+    # bindsym --to-code $mod+minus scratchpad show
 #
 # Resizing containers:
 #
@@ -252,6 +255,9 @@ bindsym --to-code $mod+r mode "resize"
     # Win+Shift+S: active window
     bindsym --to-code $mod+Shift+s exec $screenshot-cmd window
 
+    # Win+Ctrl+S: OCR selected region
+    bindsym --to-code $mod+Ctrl+s exec ~/.config/sway/scripts/ocr.sh
+
     # window rules
     for_window [app_id="org.gnome.Characters"] floating enable
     for_window [app_id="galculator"] floating enable
@@ -260,7 +266,8 @@ bindsym --to-code $mod+r mode "resize"
     for_window [class="Windscribe"] floating enable
     for_window [title="Keybinds"] floating enable, move position center
     for_window [app_id="blueman-manager"] floating enable, resize set 900 600, move position center
-    for_window [app_id="nmtui"] floating enable, resize set 900 600, move position center
+    for_window [app_id="bluetui"] floating enable, resize set 1100 800, move position center
+    for_window [app_id="nmtui"] floating enable, resize set 1100 800, move position center
 #
 # Status Bar:
 #

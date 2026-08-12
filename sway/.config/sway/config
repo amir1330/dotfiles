@@ -265,6 +265,8 @@ bindsym --to-code $mod+r mode "resize"
     for_window [class="xdman-Main"] floating enable
     for_window [class="Windscribe"] floating enable
     for_window [title="Keybinds"] floating enable, move position center
+    for_window [title="Sign in"] floating enable, resize set 900 700, move position center
+    for_window [title="Log in"] floating enable, resize set 900 700, move position center
     for_window [app_id="blueman-manager"] floating enable, resize set 900 600, move position center
     for_window [app_id="bluetui"] floating enable, resize set 1100 800, move position center
     for_window [app_id="nmtui"] floating enable, resize set 1100 800, move position center

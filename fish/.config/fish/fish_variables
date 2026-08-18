@@ -12,7 +12,7 @@ SETUVAR _fisher_joseluisq_2F_gitnow_40_32_2E_31_32_2E_30__files:\x7e/\x2econfig/
 SETUVAR _fisher_plugins:joseluisq/gitnow\x402\x2e12\x2e0
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR chain_links:chain\x2elinks\x2eroot\x1echain\x2elinks\x2ejobs\x1echain\x2elinks\x2epwd\x1echain\x2elinks\x2evcs_branch\x1echain\x2elinks\x2evcs_dirty\x1echain\x2elinks\x2evcs_stashed
-SETUVAR fish_user_paths:/home/amir1330/\x2escripts\x1e/home/amir1330/\x2eyarn/bin
+SETUVAR fish_user_paths:/home/amir1330/Android/Sdk/emulator\x1e/home/amir1330/Android/Sdk/platform\x2dtools\x1e/home/amir1330/Android/Sdk/cmdline\x2dtools/latest/bin\x1e/home/amir1330/\x2escripts\x1e/home/amir1330/\x2eyarn/bin
 SETUVAR pure_begin_prompt_with_current_directory:true
 SETUVAR pure_check_for_new_release:false
 SETUVAR pure_color_at_sign:pure_color_mute

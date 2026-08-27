@@ -15,7 +15,7 @@ case $1 in
     mpv --fullscreen --no-audio --no-osc --no-osd-bar --loop-file=no --pause --no-input-default-bindings --keepaspect=no --cursor-autohide=no "$TMP" &
     MPV_PID=$!
     sleep 0.3
-    REGION=$(slurp)
+    REGION=$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible? and (.app_id // "" != "mpv")) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)
     if [ -n "$REGION" ]; then
       X=$(echo "$REGION" | cut -d, -f1)
       Y=$(echo "$REGION" | cut -d, -f2 | cut -d' ' -f1)

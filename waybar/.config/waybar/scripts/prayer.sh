@@ -44,7 +44,7 @@ NOW_MIN=$((10#$(date +%H) * 60 + 10#$(date +%M)))
 
 # Convert HH:MM to minutes
 to_min() {
-  echo $((${1:0:2} * 60 + ${1:3:2}))
+  echo $((10#${1:0:2} * 60 + 10#${1:3:2}))
 }
 
 FAJR_MIN=$(to_min "$FAJR")
@@ -105,23 +105,18 @@ TOOLTIP="<b>${CITY_SHORT} \u2014 Today</b>\n━━━━━━━━━━━━
 for i in 0 1 2 3 4; do
   name="${NAMES[$i]}"
   ptime="${TIMES[$i]}"
+  # Convert to 12h
+  h=${ptime:0:2}
+  m=${ptime:3:2}
+  if ((10#$h < 12)); then ap="AM"; else ap="PM"; fi
+  if ((10#$h == 0)); then h12=12; elif ((10#$h > 12)); then h12=$((10#$h - 12)); else h12=$h; fi
+  line="  ${name}  ${h12}:${m} ${ap}"
   if [[ "$name" == "$NEXT_NAME" ]]; then
-    h=${ptime:0:2}
-    m=${ptime:3:2}
-    if ((10#$h < 12)); then ap="AM"; else ap="PM"; fi
-    if ((10#$h == 0)); then h12=12; elif ((10#$h > 12)); then h12=$((10#$h - 12)); else h12=$h; fi
-    TOOLTIP+="\u25b8 ${name}  ${h12}:${m} ${ap}  \u25c2\n"
+    TOOLTIP+="<span color='#d65d0e'>${line}</span>\n"
+  elif [[ " ${PASSED[*]} " == *" ${name} "* ]]; then
+    TOOLTIP+="<span color='#98971a'>${line} \u2713</span>\n"
   else
-    mark=""
-    for p in "${PASSED[@]}"; do
-      [[ "$p" == "$name" ]] && mark=" \u2713" && break
-    done
-    # Convert to 12h
-    h=${ptime:0:2}
-    m=${ptime:3:2}
-    if ((10#$h < 12)); then ap="AM"; else ap="PM"; fi
-    if ((10#$h == 0)); then h12=12; elif ((10#$h > 12)); then h12=$((10#$h - 12)); else h12=$h; fi
-    TOOLTIP+="  ${name}  ${h12}:${m} ${ap}${mark}\n"
+    TOOLTIP+="${line}\n"
   fi
 done
 

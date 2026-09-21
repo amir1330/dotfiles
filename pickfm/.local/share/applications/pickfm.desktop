@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=pickfm
+Comment=Picker-style file manager (GtkFileChooser based, Gruvbox)
+Exec=pickfm %U
+Icon=system-file-manager
+Categories=System;FileTools;FileManager;
+Terminal=false
+StartupWMClass=pickfm

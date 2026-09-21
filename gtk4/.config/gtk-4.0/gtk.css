@@ -1,83 +1,126 @@
-/*
-* GTK colors generated with Matugen
-* The source template is here: ~/.config/matugen/templates/gtk-4.0/gtk.css
-*/
+/* Gruvbox-Dark unified for GTK4 / libadwaita — square corners.
+ * Replaces old Matugen @define-color leftovers (olive #cbcb76 etc.)
+ * that clashed with Gruvbox-Dark and caused picker vs Thunar mismatch.
+ * libadwaita named colours below theme Nautilus + any Adwaita app Gruvbox
+ * (libadwaita ignores gtk-theme-name and reads these instead).
+ */
 
-@media (prefers-color-scheme: light) {
-    /* Accents */
-    @define-color accent_color #616118;
-    @define-color accent_fg_color #ffffff;
-    @define-color accent_bg_color #616118;
-    @define-color destructive_bg_color #ffdad6;
-    @define-color destructive_fg_color #410002;
-    @define-color destructive_color #ba1a1a;
-    @define-color success_bg_color #B5CCBA;
-    @define-color success_fg_color #213528;
-    @define-color success_color #374B3E;
-    /* Base surfaces */
-    @define-color window_bg_color #fdf9ec;
-    @define-color window_fg_color #1c1c14;
-    @define-color headerbar_bg_color #f1eee1;
-    @define-color headerbar_backdrop_color #f1eee1;
-    @define-color headerbar_fg_color #1c1c14;
-    @define-color card_bg_color #f1eee1;
-    @define-color card_fg_color #1c1c14;
-    @define-color sidebar_bg_color #f1eee1;
-    @define-color sidebar_fg_color #1c1c14;
-    @define-color secondary_sidebar_bg_color #f7f4e6;
-    @define-color secondary_sidebar_backdrop_color #f7f4e6;
-    @define-color secondary_sidebar_fg_color #1c1c14;
-    @define-color sidebar_border_color @sidebar_bg_color;
-    @define-color sidebar_backdrop_color @sidebar_bg_color;
-    @define-color view_bg_color #ffffff;
-    @define-color view_fg_color #1c1c14;
-    @define-color overview_bg_color #ffffff;
-    @define-color overview_fg_color #1c1c14;
-    /* Popups */
-    @define-color popover_bg_color #e6e3d5;
-    @define-color popover_fg_color #1c1c14;
-    @define-color dialog_bg_color #ece8db;
-    @define-color dialog_fg_color #1c1c14;
-    @define-color thumbnail_bg_color #ece8db;
-    @define-color thumbnail_fg_color #1c1c14;
+/* --- libadwaita / Nautilus Gruvbox-Dark palette --- */
+@define-color accent_bg_color #d79921;
+@define-color accent_fg_color #282828;
+@define-color accent_color #d79921;
+@define-color window_bg_color #282828;
+@define-color window_fg_color #ebdbb2;
+@define-color headerbar_bg_color #1d2021;
+@define-color headerbar_fg_color #ebdbb2;
+@define-color view_bg_color #282828;
+@define-color view_fg_color #ebdbb2;
+@define-color card_bg_color #3c3836;
+@define-color card_fg_color #ebdbb2;
+@define-color sidebar_bg_color #1d2021;
+@define-color sidebar_fg_color #ebdbb2;
+@define-color secondary_sidebar_bg_color #282828;
+@define-color secondary_sidebar_fg_color #ebdbb2;
+@define-color popover_bg_color #3c3836;
+@define-color popover_fg_color #ebdbb2;
+@define-color dialog_bg_color #32302f;
+@define-color dialog_fg_color #ebdbb2;
+@define-color thumbnail_bg_color #32302f;
+@define-color thumbnail_fg_color #ebdbb2;
+@define-color destructive_bg_color #cc241d;
+@define-color destructive_fg_color #fbf1c7;
+@define-color destructive_color #fb4934;
+@define-color success_bg_color #98971a;
+@define-color success_fg_color #282828;
+@define-color success_color #b8bb26;
+@define-color warning_bg_color #d65d0e;
+@define-color warning_fg_color #282828;
+@define-color warning_color #fe8019;
+@define-color error_bg_color #cc241d;
+@define-color error_fg_color #fbf1c7;
+@define-color error_color #fb4934;
+
+* {
+    border-radius: 0;
 }
 
-@media (prefers-color-scheme: dark) {
+window.background.csd,
+dialog.background.csd,
+messagedialog.csd,
+.background.csd,
+windowhandle,
+headerbar,
+.titlebar {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #3c3836;
+}
 
-    /* Accents */
-    @define-color accent_color #cbcb76;
-    @define-color accent_fg_color #323200;
-    @define-color accent_bg_color #cbcb76;
-    @define-color destructive_bg_color #93000a;
-    @define-color destructive_fg_color #ffdad6;
-    @define-color destructive_color #ffb4ab;
-    @define-color success_bg_color #374B3E;
-    @define-color success_fg_color #D1E9D6;
-    @define-color success_color #B5CCBA;
-    /* Base surfaces */
-    @define-color window_bg_color #14140c;
-    @define-color window_fg_color #e6e3d5;
-    @define-color headerbar_bg_color #202018;
-    @define-color headerbar_backdrop_color #202018;
-    @define-color headerbar_fg_color #e6e3d5;
-    @define-color card_bg_color #202018;
-    @define-color card_fg_color #e6e3d5;
-    @define-color sidebar_bg_color #202018;
-    @define-color sidebar_fg_color #e6e3d5;
-    @define-color secondary_sidebar_bg_color #1c1c14;
-    @define-color secondary_sidebar_backdrop_color #1c1c14;
-    @define-color secondary_sidebar_fg_color #e6e3d5;
-    @define-color sidebar_border_color @sidebar_bg_color;
-    @define-color sidebar_backdrop_color @sidebar_bg_color;
-    @define-color view_bg_color #0f0f07;
-    @define-color view_fg_color #e6e3d5;
-    @define-color overview_bg_color #0f0f07;
-    @define-color overview_fg_color #e6e3d5;
-    /* Popups */
-    @define-color popover_bg_color #36352c;
-    @define-color popover_fg_color #e6e3d5;
-    @define-color dialog_bg_color #2b2a22;
-    @define-color dialog_fg_color #e6e3d5;
-    @define-color thumbnail_bg_color #2b2a22;
-    @define-color thumbnail_fg_color #e6e3d5;
+/* libadwaita variables: force square */
+:root {
+    --window-radius: 0;
+    --window-border-radius: 0;
+    --dialog-radius: 0;
+    --popover-radius: 0;
+    --button-radius: 0;
+    --card-radius: 0;
+}
+
+popover.background,
+popover,
+menu,
+.tooltip,
+tooltip.background,
+dropdown popover,
+combobox popover {
+    border-radius: 0;
+    border: 1px solid #3c3836;
+    box-shadow: none;
+}
+
+button,
+button.text-button,
+button.image-button,
+button.pill,
+button.circular,
+entry,
+spinbutton,
+dropdown button,
+combobox button,
+notebook tab,
+scrollbar slider,
+scale slider,
+check,
+radio,
+switch,
+switch slider,
+card,
+infobar,
+toolbar,
+navigation-sidebar row,
+placessidebar row,
+sidebar-pane row {
+    border-radius: 0;
+}
+
+navigation-sidebar row:selected,
+placessidebar row:selected,
+sidebar row:selected,
+treeview.view:selected,
+iconview.view:selected,
+.view:selected,
+row:selected {
+    border-radius: 0;
+}
+
+scrollbar,
+scrollbar trough,
+scrollbar slider {
+    border-radius: 0;
+}
+
+toast,
+notification,
+alert {
+    border-radius: 0;
 }

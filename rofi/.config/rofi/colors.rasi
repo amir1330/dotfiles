@@ -1,11 +1,11 @@
-/* Gruvbox Light — rofi colors */
+/* Gruvbox Dark — rofi colors */
 * {
-    background:     #fbf1c7;
-    background-alt: #ebdbb2;
-    background-dark:#f9f5d7;
-    foreground:     #3c3836;
-    selected:       #076678;
-    active:         #79740e;
-    urgent:         #cc241d;
-    border:         #d5c4a1;
+    background:     #1d2021;
+    background-alt: #32302f;
+    background-dark:#1d2021;
+    foreground:     #ebdbb2;
+    selected:       #458588;
+    active:         #b8bb26;
+    urgent:         #fb4934;
+    border:         #504945;
 }

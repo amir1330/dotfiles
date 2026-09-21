@@ -1,38 +1,188 @@
-/*
-* GTK colors generated with Matugen
-* The source template is here: ~/.config/matugen/templates/gtk-3.0/gtk.css
-*/
+/* Gruvbox-Dark unified — Thunar + GtkFileChooser (portal) consistency.
+ * Replaces old Matugen leftovers that caused explorer inconsistencies.
+ * Theme itself (Gruvbox-Dark) already provides Gruvbox colours;
+ * this file only forces square corners and removes rounding/shadows.
+ */
 
-/* Accents */
-@define-color accent_color #cbcb76;
-@define-color accent_fg_color #323200;
-@define-color accent_bg_color #cbcb76;
-@define-color destructive_bg_color #93000a;
-@define-color destructive_fg_color #ffdad6;
-@define-color destructive_color #ffb4ab;
-@define-color success_bg_color #374B3E;
-@define-color success_fg_color #D1E9D6;
-@define-color success_color #B5CCBA;
-/* Base surfaces */
-@define-color window_bg_color #14140c;
-@define-color window_fg_color #e6e3d5;
-@define-color headerbar_bg_color #202018;
-@define-color headerbar_backdrop_color #202018;
-@define-color headerbar_fg_color #e6e3d5;
-@define-color card_bg_color #202018;
-@define-color card_fg_color #e6e3d5;
-@define-color sidebar_bg_color #202018;
-@define-color sidebar_fg_color #e6e3d5;
-@define-color secondary_sidebar_bg_color #1c1c14;
-@define-color secondary_sidebar_fg_color #e6e3d5;
-@define-color sidebar_border_color @sidebar_bg_color;
-@define-color sidebar_backdrop_color @sidebar_bg_color;
-@define-color view_bg_color #0f0f07;
-@define-color view_fg_color #e6e3d5;
-@define-color overview_bg_color #0f0f07;
-@define-color overview_fg_color #e6e3d5;
-/* Popups */
-@define-color popover_bg_color #36352c;
-@define-color popover_fg_color #e6e3d5;
-@define-color dialog_bg_color #2b2a22;
-@define-color dialog_fg_color #e6e3d5;
+* {
+    border-radius: 0;
+    -GtkWidget-window-dragging: true;
+}
+
+/* Client-side decorations: square, Gruvbox border like sway pixel borders */
+window.background.csd,
+dialog.background.csd,
+messagedialog.csd,
+.background.csd {
+    border-radius: 0;
+    border: 2px solid #3c3836;
+    box-shadow: none;
+}
+
+window.background.csd:backdrop,
+dialog.background.csd:backdrop {
+    border-color: #3c3836;
+    box-shadow: none;
+}
+
+/* Headerbar / titlebar square */
+headerbar,
+.titlebar,
+headerbar:backdrop,
+.titlebar:backdrop {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* Popovers, menus, tooltips square */
+popover.background,
+popover,
+menu,
+.menu,
+tooltip.background,
+tooltip,
+combobox window.popup,
+treeview window.popup {
+    border-radius: 0;
+    border: 1px solid #3c3836;
+    box-shadow: none;
+}
+
+/* Buttons, entries, notebook tabs square (file picker + Thunar) */
+button,
+button.text-button,
+button.image-button,
+entry,
+spinbutton,
+combobox button,
+notebook tab,
+scrollbar slider,
+scale slider,
+check,
+radio,
+switch,
+infobar,
+toolbar,
+toolbutton button,
+filechooser placessidebar row,
+filechooser treeview,
+.view,
+iconview {
+    border-radius: 0;
+}
+
+/* Thunar + file chooser sidebar: match sway darkgray, no rounded selection */
+placessidebar,
+sidebar,
+paned > separator,
+filechooser placessidebar,
+thunar placessidebar {
+    border-radius: 0;
+}
+
+placessidebar row:selected,
+sidebar row:selected,
+treeview.view:selected,
+iconview.view:selected,
+.view:selected {
+    border-radius: 0;
+}
+
+/* Scrollbars thin + square */
+scrollbar,
+scrollbar trough,
+scrollbar slider {
+    border-radius: 0;
+}
+
+/* --- Gruvbox background unification ---
+ * Upstream theme paints .view near-black while windows are #282828.
+ * Force one palette: view #282828, sidebar #1d2021, selection yellow. */
+.view,
+treeview.view,
+iconview.view,
+filechooser treeview,
+filechooser iconview,
+treeview,
+iconview,
+window.background filechooser treeview.view,
+window.background filechooser iconview.view,
+window.background treeview.view {
+    background-color: #282828;
+    color: #ebdbb2;
+}
+
+.view:selected,
+treeview.view:selected,
+iconview.view:selected,
+row:selected {
+    background-color: alpha(#ebdbb2, 0.14);
+    color: #fbf1c7;
+}
+
+placessidebar,
+sidebar,
+filechooser placessidebar,
+source-list,
+placessidebar.sidebar {
+    background-color: #282828;
+    color: #ebdbb2;
+}
+
+placessidebar row,
+sidebar row {
+    color: #ebdbb2;
+}
+
+placessidebar row:selected,
+sidebar row:selected {
+    background-color: #3c3836;
+    color: #fabd2f;
+}
+
+entry,
+textview text,
+textview {
+    background-color: #1d2021;
+    color: #ebdbb2;
+}
+
+/* --- File chooser breadcrumb / location bar ---
+ * The path bar above the file list rendered near-black while the
+ * view is brown. Blend it into the view: brown bg, cream text. */
+filechooser .path-bar,
+filechooser box.path-bar,
+filechooser .location-bar,
+filechooser searchbar,
+filechooser searchbar revealer box {
+    background-color: #282828;
+    color: #ebdbb2;
+    border: none;
+    box-shadow: none;
+}
+
+filechooser .path-bar button,
+filechooser .location-bar button {
+    background-color: #282828;
+    color: #ebdbb2;
+    border: 1px solid #504945;
+}
+
+filechooser .path-bar button:checked,
+filechooser .path-bar button:active {
+    background-color: #504945;
+    color: #fabd2f;
+}
+
+/* --- Dialog chrome like Nautilus: headerbar + bottom bar #3b3a36 --- */
+dialog headerbar,
+messagedialog headerbar,
+filechooser dialog headerbar,
+dialog filechooser headerbar,
+filechooser .dialog-action-area,
+filechooser dialog .dialog-action-area {
+    background-color: #3b3a36;
+    color: #ebdbb2;
+    border: none;
+    box-shadow: none;
+}

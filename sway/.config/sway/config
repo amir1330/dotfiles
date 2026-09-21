@@ -1,8 +1,6 @@
-exec systemctl --user start sway-session.target
 exec --no-startup-id /usr/lib/xdg-desktop-portal -r
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK GTK_USE_PORTAL GTK_THEME
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 exec libinput-gestures -c .config/libinput-gestures/sway.conf
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
@@ -29,12 +27,12 @@ set $menu rofi -show drun | swaymsg
 set $file rofi -show filebrowser | swaymsg
 set $run rofi -show run | swaymsg
 set $browser qutebrowser
-set $fileexp thunar
+set $fileexp /usr/bin/nautilus --new-window
 
 default_border pixel 4
 default_floating_border pixel 4
 ### Output configuration
-output * bg /home/amir1330/Wallpapers/wallpaper_2.png fill
+output * bg /home/amir1330/Wallpapers/8207848.png fill
 
 client.focused          $yellow $accent $darkgray $yellow $yellow
 client.focused_inactive $darkgray $darkgray $accent $darkgray $darkgray
@@ -64,9 +62,6 @@ input type:pointer {
     accel_profile flat
     pointer_accel 0
 }
-
-## cursor
-seat * xcursor_theme Adwaita 24
 
 ### Key bindings
 #
@@ -257,14 +252,13 @@ bindsym --to-code $mod+r mode "resize"
     # Print: fullscreen
     bindsym --to-code Print exec $screenshot-cmd screen
 
-    # Win+Shift+S: frozen-frame region select
-    bindsym --to-code $mod+Shift+s exec $screenshot-cmd freeze
+    # Win+Shift+S: active window
+    bindsym --to-code $mod+Shift+s exec $screenshot-cmd window
 
     # Win+Ctrl+S: OCR selected region
     bindsym --to-code $mod+Ctrl+s exec ~/.config/sway/scripts/ocr.sh
 
     # window rules
-    for_window [app_id="gruvmedia"] floating enable
     for_window [app_id="org.gnome.Characters"] floating enable
     for_window [app_id="galculator"] floating enable
     for_window [app_id="org.telegram.desktop"] floating enable

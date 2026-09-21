@@ -1,28 +1,28 @@
-/* Gruvbox Light — wlogout */
+/* Gruvbox Dark — wlogout */
 window {
     font-family: JetBrainsMono Nerd Font;
     font-size: 10pt;
-    color: #3c3836;
+    color: #ebdbb2;
     background-color: transparent;
 }
 
 button {
-    background: #ebdbb2;
+    background: #32302f;
     border: none;
     border-radius: 0;
     margin: 0;
     padding: 0;
     min-height: 0;
     min-width: 0;
-    color: #928374;
+    color: #a89984;
 }
 
 button:hover {
-    background: #d5c4a1;
-    color: #b57614;
+    background: #504945;
+    color: #fabd2f;
 }
 
 button:focus {
-    background: #d5c4a1;
-    color: #b57614;
+    background: #504945;
+    color: #fabd2f;
 }

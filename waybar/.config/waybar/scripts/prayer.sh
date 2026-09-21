@@ -40,18 +40,18 @@ if [[ -z "$FAJR" ]]; then
   exit 1
 fi
 
-NOW_MIN=$((10#$(date +%H) * 60 + 10#$(date +%M)))
+NOW_SEC=$((10#$(date +%H) * 3600 + 10#$(date +%M) * 60 + 10#$(date +%S)))
 
-# Convert HH:MM to minutes
-to_min() {
-  echo $((10#${1:0:2} * 60 + 10#${1:3:2}))
+# Convert HH:MM to seconds since midnight
+to_sec() {
+  echo $((10#${1:0:2} * 3600 + 10#${1:3:2} * 60))
 }
 
-FAJR_MIN=$(to_min "$FAJR")
-DHUHR_MIN=$(to_min "$DHUHR")
-ASR_MIN=$(to_min "$ASR")
-MAGHRIB_MIN=$(to_min "$MAGHRIB")
-ISHA_MIN=$(to_min "$ISHA")
+FAJR_MIN=$(to_sec "$FAJR")
+DHUHR_MIN=$(to_sec "$DHUHR")
+ASR_MIN=$(to_sec "$ASR")
+MAGHRIB_MIN=$(to_sec "$MAGHRIB")
+ISHA_MIN=$(to_sec "$ISHA")
 
 # Prayers in order
 NAMES=(Fajr Dhuhr Asr Maghrib Isha)
@@ -65,7 +65,7 @@ NEXT_TIME=""
 PASSED=()
 
 for i in 0 1 2 3 4; do
-  if ((NOW_MIN < MINS[$i])); then
+  if ((NOW_SEC < MINS[$i])); then
     if [[ -z "$NEXT_NAME" ]]; then
       NEXT_NAME="${NAMES[$i]}"
       NEXT_MIN=${MINS[$i]}
@@ -80,15 +80,20 @@ done
 if [[ -z "$NEXT_NAME" ]]; then
   NEXT_NAME="Fajr"
   NEXT_TIME="$FAJR"
-  NEXT_MIN=$((FAJR_MIN + 1440))
+  NEXT_MIN=$((FAJR_MIN + 86400))
 fi
 
-# Time remaining
-DIFF_MIN=$((NEXT_MIN - NOW_MIN))
-((DIFF_MIN < 0)) && DIFF_MIN=$((DIFF_MIN + 1440))
+# Time remaining (second precision, floored to minutes so it never over-estimates)
+DIFF_SEC=$((NEXT_MIN - NOW_SEC))
+((DIFF_SEC < 0)) && DIFF_SEC=$((DIFF_SEC + 86400))
+DIFF_MIN=$((DIFF_SEC / 60))
 HOURS=$((DIFF_MIN / 60))
 MINS_LEFT=$((DIFF_MIN % 60))
-((HOURS > 0)) && REMAINING="${HOURS}h ${MINS_LEFT}m" || REMAINING="${MINS_LEFT}m"
+if ((HOURS > 0)); then
+  REMAINING="${HOURS}h ${MINS_LEFT}m"
+else
+  REMAINING="${MINS_LEFT}m"
+fi
 
 # Waybar text
 TEXT="${NEXT_NAME} ${REMAINING}"

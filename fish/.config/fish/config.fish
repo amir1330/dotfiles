@@ -14,6 +14,8 @@ abbr mkdir "mkdir -p"
 
 set -Ua fish_user_paths ~/.yarn/bin
 fish_add_path ~/.scripts
+# Force browsers to use the portal file picker (Gruvbox-themed, square)
+set -gx GTK_USE_PORTAL 1
 set -gx GPG_TTY (tty)
 set -gx PATH $HOME/fvm/default/bin $HOME/.pub-cache/bin $PATH
 # Android Environment & Paths

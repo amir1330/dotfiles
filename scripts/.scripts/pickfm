@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+"""pickfm — file manager built on GtkFileChooserWidget.
+
+Looks exactly like the portal file picker (same widget), because it IS
+the same widget — just in a full window with manager extras:
+double-click opens files, folders navigate, plus hidden-files toggle,
+new folder, and open-terminal-here. Themed by your GTK3/Gruvbox setup.
+"""
+import os
+import subprocess
+import sys
+
+import gi
+
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gio, Gtk  # noqa: E402
+
+
+class PickFM(Gtk.Window):
+    def __init__(self, start_dir=None):
+        super().__init__(title="pickfm")
+        self.set_default_size(1100, 700)
+
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
+        self.add(box)
+
+        # Toolbar: manager extras the picker dialog lacks
+        bar = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+        bar.set_border_width(6)
+        box.pack_start(bar, False, False, 0)
+
+        self.hidden_btn = Gtk.ToggleButton(label="Hidden")
+        self.hidden_btn.connect("toggled", self.on_hidden)
+        bar.pack_start(self.hidden_btn, False, False, 0)
+
+        new_btn = Gtk.Button(label="New folder")
+        new_btn.connect("clicked", self.on_new_folder)
+        bar.pack_start(new_btn, False, False, 0)
+
+        term_btn = Gtk.Button(label="Terminal")
+        term_btn.connect("clicked", self.on_terminal)
+        bar.pack_start(term_btn, False, False, 0)
+
+        # The picker itself
+        self.chooser = Gtk.FileChooserWidget(action=Gtk.FileChooserAction.OPEN)
+        self.chooser.set_select_multiple(False)
+        if start_dir and os.path.isdir(start_dir):
+            self.chooser.set_current_folder(start_dir)
+        self.chooser.connect("file-activated", self.on_activated)
+        self.chooser.connect("current-folder-changed", self.on_folder_changed)
+        box.pack_start(self.chooser, True, True, 0)
+
+        self.on_folder_changed(self.chooser)
+        self.connect("destroy", Gtk.main_quit)
+        self.show_all()
+
+    # -- behaviour -----------------------------------------------------
+    def on_activated(self, chooser):
+        f = chooser.get_file()
+        if f is None:
+            return
+        path = f.get_path()
+        if path and os.path.isdir(path):
+            chooser.set_current_folder(path)  # single-click enter for dirs
+            return
+        try:
+            Gio.AppInfo.launch_default_for_uri(f.get_uri(), None)
+        except Exception as e:  # noqa: BLE001
+            self.error(f"Could not open {path}: {e}")
+
+    def on_folder_changed(self, chooser):
+        folder = chooser.get_current_folder()
+        self.set_title(folder or "pickfm")
+
+    def on_hidden(self, btn):
+        self.chooser.set_show_hidden(btn.get_active())
+
+    def on_new_folder(self, _btn):
+        folder = self.chooser.get_current_folder() or os.path.expanduser("~")
+        name = os.path.join(folder, "new-folder")
+        i = 2
+        while os.path.exists(name):
+            name = os.path.join(folder, f"new-folder-{i}")
+            i += 1
+        try:
+            os.mkdir(name)
+        except OSError as e:
+            self.error(str(e))
+
+    def on_terminal(self, _btn):
+        folder = self.chooser.get_current_folder() or os.path.expanduser("~")
+        subprocess.Popen(["kitty", "--directory", folder])
+
+    def error(self, msg):
+        d = Gtk.MessageDialog(
+            transient_for=self,
+            message_type=Gtk.MessageType.ERROR,
+            buttons=Gtk.ButtonsType.CLOSE,
+            text=msg,
+        )
+        d.run()
+        d.destroy()
+
+
+if __name__ == "__main__":
+    start = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser("~")
+    PickFM(start)
+    Gtk.main()

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# brave — PATH shadow (~/.scripts precedes /usr/bin) so every launch
+# (terminal, keybinds, scripts — not just .desktop files) syncs the Gruvbox
+# theme/NTP with the system theme before Brave starts. No recursion:
+# brave-gruvbox-launch execs /usr/bin/brave by absolute path.
+set -euo pipefail
+"$HOME/.scripts/brave-gruvbox-switch" >/dev/null 2>&1 || true
+exec /usr/bin/brave "$@"

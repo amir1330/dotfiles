@@ -1,6 +1,7 @@
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE SWAYSOCK GTK_USE_PORTAL GTK_THEME
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE SWAYSOCK GTK_USE_PORTAL
+exec --no-startup-id /usr/lib/xdg-desktop-portal-gnome
 exec --no-startup-id /usr/lib/xdg-desktop-portal -r
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK GTK_USE_PORTAL GTK_THEME
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK
 exec libinput-gestures -c .config/libinput-gestures/sway.conf
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
@@ -8,6 +9,9 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id blueman-applet
 exec --no-startup-id udiskie
 exec --no-startup-id wayvnc 127.0.0.1 5900
+# Preload Nautilus so Win+E opens instantly (~0.2s warm vs ~2.2s cold).
+# Hidden to scratchpad at login — daemon stays resident, no visible window.
+exec --no-startup-id ~/.config/sway/scripts/nautilus-preload.sh
 include ~/.config/sway/theme-colors
 set $yellow #d79921
 
@@ -32,7 +36,7 @@ set $fileexp /usr/bin/nautilus --new-window
 default_border pixel 4
 default_floating_border pixel 4
 ### Output configuration
-output * bg /home/amir1330/Wallpapers/8207848.png fill
+output * bg /home/amir1330/Wallpapers/7731799.png fill
 
 client.focused          $yellow $accent $darkgray $yellow $yellow
 client.focused_inactive $darkgray $darkgray $accent $darkgray $darkgray
@@ -105,8 +109,6 @@ input type:pointer {
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
     floating_modifier $mod normal
 
     # Reload the configuration file
@@ -265,8 +267,6 @@ bindsym --to-code $mod+r mode "resize"
     for_window [class="xdman-Main"] floating enable
     for_window [class="Windscribe"] floating enable
     for_window [title="Keybinds"] floating enable, move position center
-    for_window [title="Sign in"] floating enable, resize set 900 700, move position center
-    for_window [title="Log in"] floating enable, resize set 900 700, move position center
     for_window [app_id="blueman-manager"] floating enable, resize set 900 600, move position center
     for_window [app_id="bluetui"] floating enable, resize set 1100 800, move position center
     for_window [app_id="nmtui"] floating enable, resize set 1100 800, move position center

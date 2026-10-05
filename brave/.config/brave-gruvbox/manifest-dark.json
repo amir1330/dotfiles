@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "Gruvbox Brave",
+  "description": "Gruvbox Dark for Brave. Auto-switched with the system theme by brave-gruvbox-switch.",
+  "theme": {
+    "colors": {
+      "frame": [29, 32, 33],
+      "frame_inactive": [29, 32, 33],
+      "frame_incognito": [29, 32, 33],
+      "frame_incognito_inactive": [29, 32, 33],
+      "background_tab": [29, 32, 33],
+      "toolbar": [50, 48, 47],
+      "tab_text": [250, 189, 47],
+      "tab_background_text": [124, 111, 100],
+      "bookmark_text": [235, 219, 178],
+      "omnibox_background": [29, 32, 33],
+      "omnibox_text": [235, 219, 178],
+      "ntp_background": [40, 40, 40],
+      "ntp_text": [235, 219, 178],
+      "ntp_link": [215, 153, 33],
+      "ntp_header": [60, 56, 54],
+      "ntp_section": [60, 56, 54],
+      "ntp_section_text": [235, 219, 178],
+      "ntp_section_link": [215, 153, 33]
+    }
+  }
+}

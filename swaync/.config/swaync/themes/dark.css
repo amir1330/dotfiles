@@ -1,181 +1,323 @@
-/* Gruvbox Dark — swaync */
+/* Gruvbox Dark — swaync, waybar style: flat box + underline */
 @define-color bg #1d2021;
 @define-color bg-alt #32302f;
 @define-color fg #ebdbb2;
 @define-color border #504945;
 @define-color gray #7c6f64;
-@define-color green #b8bb26;
+@define-color gray-light #928374;
 @define-color yellow #fabd2f;
 @define-color red #fb4934;
-@define-color blue #83a598;
+@define-color red-dark #cc241d;
+@define-color green #b8bb26;
 @define-color aqua #8ec07c;
+@define-color blue #83a598;
+@define-color orange #fe8019;
 
-/* --- Notification --- */
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 0;
+  outline: none;
+}
+
+/* --- floating notifications wrapper must stay transparent --- */
+.floating-notifications.background,
+.floating-notifications.background .notification-background {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-row {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 6px 0 0 0;
+}
+
+/* --- the bubble: flat box + waybar-like underline --- */
+.notification-background .notification,
+.floating-notifications .notification,
 .notification {
-    background: @bg-alt;
-    border-color: @border;
+  background: @bg;
+  color: @fg;
+  border: 1px solid @border;
+  border-bottom: 2px solid @yellow;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  padding: 0;
+  margin: 0;
 }
 
-/* --- Close button --- */
+/* urgency highlight = underline color, like waybar modules */
+.notification.low {
+  border-bottom-color: @blue;
+}
+.notification.normal {
+  border-bottom-color: @yellow;
+}
+.notification.critical {
+  border-bottom-color: @red;
+  background: @bg;
+}
+
+.notification-content {
+  background: transparent;
+  padding: 10px 12px;
+}
+
+/* --- text --- */
+.summary {
+  color: @fg;
+  font-weight: bold;
+  font-size: 14px;
+}
+.time {
+  color: @gray;
+  font-size: 12px;
+}
+.body {
+  color: @fg;
+  font-size: 13px;
+}
+.body-image {
+  background: transparent;
+}
+
+/* app icon / image */
+.image,
+.notification .image,
+.notification-icon {
+  background: transparent;
+  border: none;
+  margin-right: 8px;
+}
+
+/* --- close button: waybar style, text only --- */
 .close-button {
-    background: @red;
-    color: @bg;
+  background: transparent;
+  color: @gray;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 4px 4px 0 0;
+  padding: 2px 6px;
+  min-width: 20px;
+  min-height: 20px;
 }
-
 .close-button:hover {
-    background: @red;
-    color: @bg;
+  background: @bg-alt;
+  color: @red;
 }
 
-/* --- Notification actions --- */
+/* --- actions: flat row with top border --- */
+.notification-default-action,
 .notification-action {
-    border-color: @border;
+  background: transparent;
+  color: @fg;
+  border: none;
+  border-top: 1px solid @border;
+  border-radius: 0;
+  padding: 6px;
+  transition: all 0.15s ease;
 }
-
 .notification-default-action:hover,
 .notification-action:hover {
-    color: @fg;
-    background: @bg-alt;
+  background: @bg-alt;
+  color: @yellow;
+}
+/* side-by-side action separator */
+.notification-action + .notification-action {
+  border-left: 1px solid @border;
 }
 
-.notification-action:first-child {
-    background: @bg-alt;
-}
-
-.notification-action:last-child {
-    background: @bg;
-}
-
-/* --- Notification content --- */
-.summary {
-    color: @fg;
-}
-
-.time {
-    color: @gray;
-}
-
-.body {
-    color: @fg;
-}
-
-.body-image {
-    color: @fg;
-}
-
-/* --- Inline reply --- */
+/* --- inline reply --- */
 .inline-reply-entry {
-    background: @bg;
-    color: @fg;
-    border-color: @border;
+  background: @bg-alt;
+  color: @fg;
+  border: 1px solid @border;
+  caret-color: @fg;
+  padding: 6px;
 }
-
 .inline-reply-button {
-    background: @bg;
-    color: @fg;
-    border-color: @border;
+  background: transparent;
+  color: @green;
+  border: 1px solid @border;
+  border-left: none;
+}
+.inline-reply-button:hover {
+  background: @bg-alt;
 }
 
-/* --- Control center --- */
+/* ================= control center ================= */
 .control-center {
-    background: @bg;
-    border-color: @border;
-    color: @fg;
+  background: @bg;
+  border: 1px solid @border;
+  color: @fg;
+  padding: 10px;
 }
 
+.control-center .notification-row {
+  margin: 8px 0 0 0;
+}
 .control-center .notification-row:focus,
 .control-center .notification-row:hover {
-    background: @bg-alt;
+  background: transparent;
+}
+.control-center .notification {
+  box-shadow: none;
 }
 
-/* --- Widget: Title --- */
+/* scrollbar */
+.control-center scrollbar,
+control-center scrollbar,
+scrollbar {
+  background: transparent;
+}
+scrollbar slider {
+  background: @border;
+  border: none;
+  min-width: 6px;
+}
+scrollbar slider:hover {
+  background: @gray;
+}
+
+/* --- widget: title --- */
 .widget-title {
-    color: @fg;
-    background: @bg-alt;
+  background: transparent;
+  color: @fg;
+  border-bottom: 2px solid @yellow;
+  padding: 4px 2px 8px 2px;
+  margin: 0 0 4px 0;
+  font-weight: bold;
 }
-
 .widget-title > button {
-    color: @fg;
-    border-color: @border;
+  background: transparent;
+  color: @gray;
+  border: 1px solid @border;
+  padding: 2px 10px;
 }
-
 .widget-title > button:hover {
-    background: @fg;
-    color: @bg;
+  background: @bg-alt;
+  color: @red;
+  border-color: @red;
 }
 
-/* --- Widget: DND --- */
+/* --- widget: dnd --- */
 .widget-dnd {
-    background: @bg-alt;
-    color: @gray;
+  background: transparent;
+  color: @gray;
+  border-bottom: 2px solid @border;
+  padding: 4px 2px 8px 2px;
+  margin: 0;
 }
-
 .widget-dnd > switch {
-    border-color: @blue;
-    background: @border;
+  background: @bg-alt;
+  border: 1px solid @border;
+  border-radius: 0;
 }
-
 .widget-dnd > switch:checked {
-    background: @green;
-    border-color: @green;
+  background: @green;
+  border-color: @green;
 }
-
 .widget-dnd > switch slider {
-    background: @bg;
+  background: @fg;
+  border: none;
+  border-radius: 0;
 }
 
-.widget-dnd > switch:checked slider {
-    background: @bg;
-}
-
-/* --- Widget: MPRIS --- */
+/* --- widget: mpris --- */
 .widget-mpris {
-    color: @fg;
-    background: @bg-alt;
+  background: @bg-alt;
+  color: @fg;
+  border: 1px solid @border;
+  border-bottom: 2px solid @green;
+  padding: 8px;
+  margin: 8px 0 0 0;
 }
-
 .widget-mpris-title {
-    color: @fg;
+  color: @fg;
+  font-weight: bold;
 }
-
 .widget-mpris-subtitle {
-    color: @gray;
+  color: @gray;
+}
+.widget-mpris > box > button {
+  color: @fg;
+  background: transparent;
+  border: none;
+}
+.widget-mpris > box > button:hover {
+  color: @yellow;
+  background: transparent;
 }
 
-/* --- Widget: Buttons grid --- */
-.widget-buttons-grid {
-    color: @aqua;
-    background: @bg-alt;
-}
-
-.widget-buttons-grid > flowbox > flowboxchild > button {
-    background: @bg;
-    color: @fg;
-}
-
-.widget-buttons-grid > flowbox > flowboxchild >button:hover {
-    background: @fg;
-    color: @bg;
-}
-
-/* --- Widget: Volume --- */
-.widget-volume {
-    background: @bg-alt;
-    color: @fg;
-}
-
-.widget-volume > box > button {
-    background: @border;
-}
-
-/* --- Widget: Backlight --- */
+/* --- widget: volume / backlight --- */
+.widget-volume,
 .widget-backlight {
-    background: @bg-alt;
-    color: @fg;
+  background: transparent;
+  color: @fg;
+  border-bottom: 2px solid @blue;
+  padding: 4px 2px 8px 2px;
+  margin: 0;
+}
+.widget-volume > box > button,
+.widget-backlight > box > button {
+  background: transparent;
+  color: @gray;
+  border: none;
+}
+.widget-volume > box > button:hover,
+.widget-backlight > box > button:hover {
+  color: @fg;
+  background: @bg-alt;
+}
+trough {
+  background: @bg-alt;
+  border: 1px solid @border;
+  min-height: 6px;
+}
+trough highlight {
+  background: @yellow;
+  border: none;
+}
+.widget-volume trough highlight {
+  background: @blue;
 }
 
-/* --- Per-app volume --- */
-.per-app-volume {
-    background: @bg;
-    color: @fg;
+/* --- widget: buttons grid --- */
+.widget-buttons-grid {
+  background: transparent;
+  color: @fg;
+  padding: 8px 0 0 0;
+}
+.widget-buttons-grid > flowbox > flowboxchild > button {
+  background: transparent;
+  color: @aqua;
+  border: 1px solid @border;
+  border-bottom: 2px solid @aqua;
+  margin: 2px;
+  padding: 6px;
+  transition: all 0.15s ease;
+}
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+  background: @bg-alt;
+  color: @fg;
+}
+.widget-buttons-grid > flowbox > flowboxchild > button.toggle:checked {
+  background: @bg-alt;
+  color: @yellow;
+  border-bottom-color: @yellow;
+}
+
+/* --- blank state --- */
+.blank-window {
+  background: transparent;
+}
+.widget-notifications .notification-row {
+  margin-top: 8px;
 }

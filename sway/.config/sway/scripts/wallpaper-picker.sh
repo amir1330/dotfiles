@@ -103,15 +103,22 @@ if [[ "$target" != "$current" ]]; then
         gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Light' 2>/dev/null || true
         gsettings set org.gnome.desktop.interface color-scheme 'prefer-light' 2>/dev/null || true
         sed -i 's/^gtk-theme-name=.*/gtk-theme-name=Gruvbox-Light/' "$HOME/.config/gtk-3.0/settings.ini" 2>/dev/null || true
+        sed -i 's/^gtk-theme-name=.*/gtk-theme-name=Gruvbox-Light/' "$HOME/.config/gtk-4.0/settings.ini" 2>/dev/null || true
+        sed -i 's/^gtk-application-prefer-dark-theme=.*/gtk-application-prefer-dark-theme=0/' "$HOME/.config/gtk-3.0/settings.ini" 2>/dev/null || true
     else
         gsettings set org.gnome.desktop.interface gtk-theme 'Gruvbox-Dark' 2>/dev/null || true
         gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
         sed -i 's/^gtk-theme-name=.*/gtk-theme-name=Gruvbox-Dark/' "$HOME/.config/gtk-3.0/settings.ini" 2>/dev/null || true
+        sed -i 's/^gtk-theme-name=.*/gtk-theme-name=Gruvbox-Dark/' "$HOME/.config/gtk-4.0/settings.ini" 2>/dev/null || true
+        sed -i 's/^gtk-application-prefer-dark-theme=.*/gtk-application-prefer-dark-theme=1/' "$HOME/.config/gtk-3.0/settings.ini" 2>/dev/null || true
     fi
 
     # btop
     sed -i "s/^color_theme = .*/color_theme = \"gruvbox_$target\"/" "$HOME/.config/btop/btop.conf"
     pkill -USR2 btop 2>/dev/null || true
+
+    # Brave (gruvbox theme follows system theme; restart Brave to apply)
+    "$HOME/.scripts/brave-gruvbox-switch" "$target" 2>/dev/null || true
 
     # reload sway (applies new border colors + re-reads wallpaper line we just sed'ed)
     # sway does NOT restart waybar on reload if the bar command hasn't changed,

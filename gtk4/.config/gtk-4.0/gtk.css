@@ -1,44 +1,53 @@
-/* Gruvbox-Dark unified for GTK4 / libadwaita — square corners.
- * Replaces old Matugen @define-color leftovers (olive #cbcb76 etc.)
- * that clashed with Gruvbox-Dark and caused picker vs Thunar mismatch.
- * libadwaita named colours below theme Nautilus + any Adwaita app Gruvbox
+/* Gruvbox-Light unified for GTK4 / libadwaita — square corners.
+ * Light variant (dark variant preserved in git history).
+ * libadwaita named colours below theme Nautilus + any Adwaita app Gruvbox-light
  * (libadwaita ignores gtk-theme-name and reads these instead).
  */
 
-/* --- libadwaita / Nautilus Gruvbox-Dark palette --- */
-@define-color accent_bg_color #d79921;
-@define-color accent_fg_color #282828;
-@define-color accent_color #d79921;
-@define-color window_bg_color #282828;
-@define-color window_fg_color #ebdbb2;
-@define-color headerbar_bg_color #1d2021;
-@define-color headerbar_fg_color #ebdbb2;
-@define-color view_bg_color #282828;
-@define-color view_fg_color #ebdbb2;
-@define-color card_bg_color #3c3836;
-@define-color card_fg_color #ebdbb2;
-@define-color sidebar_bg_color #1d2021;
-@define-color sidebar_fg_color #ebdbb2;
-@define-color secondary_sidebar_bg_color #282828;
-@define-color secondary_sidebar_fg_color #ebdbb2;
-@define-color popover_bg_color #3c3836;
-@define-color popover_fg_color #ebdbb2;
-@define-color dialog_bg_color #32302f;
-@define-color dialog_fg_color #ebdbb2;
-@define-color thumbnail_bg_color #32302f;
-@define-color thumbnail_fg_color #ebdbb2;
-@define-color destructive_bg_color #cc241d;
+/* --- libadwaita / Nautilus Gruvbox-Light palette --- */
+@define-color accent_bg_color #b57614;
+@define-color accent_fg_color #fbf1c7;
+@define-color accent_color #b57614;
+@define-color window_bg_color #fbf1c7;
+@define-color window_fg_color #3c3836;
+@define-color headerbar_bg_color #ebdbb2;
+@define-color headerbar_fg_color #3c3836;
+@define-color view_bg_color #fbf1c7;
+@define-color view_fg_color #3c3836;
+@define-color card_bg_color #ebdbb2;
+@define-color card_fg_color #3c3836;
+@define-color sidebar_bg_color #ebdbb2;
+@define-color sidebar_fg_color #3c3836;
+@define-color secondary_sidebar_bg_color #fbf1c7;
+@define-color secondary_sidebar_fg_color #3c3836;
+@define-color popover_bg_color #ebdbb2;
+@define-color popover_fg_color #3c3836;
+@define-color dialog_bg_color #ebdbb2;
+@define-color dialog_fg_color #3c3836;
+@define-color thumbnail_bg_color #ebdbb2;
+@define-color thumbnail_fg_color #3c3836;
+@define-color destructive_bg_color #9d0006;
 @define-color destructive_fg_color #fbf1c7;
-@define-color destructive_color #fb4934;
-@define-color success_bg_color #98971a;
-@define-color success_fg_color #282828;
-@define-color success_color #b8bb26;
-@define-color warning_bg_color #d65d0e;
-@define-color warning_fg_color #282828;
-@define-color warning_color #fe8019;
-@define-color error_bg_color #cc241d;
+@define-color destructive_color #cc241d;
+@define-color success_bg_color #79740e;
+@define-color success_fg_color #fbf1c7;
+@define-color success_color #79740e;
+@define-color warning_bg_color #af3a03;
+@define-color warning_fg_color #fbf1c7;
+@define-color warning_color #d65d0e;
+@define-color error_bg_color #9d0006;
 @define-color error_fg_color #fbf1c7;
-@define-color error_color #fb4934;
+@define-color error_color #cc241d;
+
+/* --- backdrop (unfocused) variants: without these libadwaita falls back
+ * to stock Adwaita-white when the window loses focus --- */
+@define-color headerbar_backdrop_color #e6d6b0;
+@define-color sidebar_backdrop_color #ebdbb2;
+@define-color secondary_sidebar_backdrop_color #fbf1c7;
+@define-color view_backdrop_color #fbf1c7;
+@define-color popover_shade_color rgba(60, 56, 54, 0.07);
+@define-color card_shade_color rgba(60, 56, 54, 0.07);
+@define-color sidebar_shade_color rgba(60, 56, 54, 0.07);
 
 * {
     border-radius: 0;
@@ -53,7 +62,7 @@ headerbar,
 .titlebar {
     border-radius: 0;
     box-shadow: none;
-    border-color: #3c3836;
+    border-color: #d5c4a1;
 }
 
 /* libadwaita variables: force square */
@@ -74,7 +83,7 @@ tooltip.background,
 dropdown popover,
 combobox popover {
     border-radius: 0;
-    border: 1px solid #3c3836;
+    border: 1px solid #d5c4a1;
     box-shadow: none;
 }
 

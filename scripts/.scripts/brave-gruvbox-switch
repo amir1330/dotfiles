@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# brave-gruvbox-switch — sync Brave's Gruvbox theme + NTP with the system theme.
+#
+# Brave (like all Chromiums) has no userChrome.css: a custom theme is a static
+# extension, so "follow system theme" is done by swapping the live theme
+# manifest and letting Brave pick it up on reload/restart.
+#
+# Source of truth for light/dark is ~/.cache/current-theme, maintained by the
+# wallpaper picker (same file that drives sway/waybar/rofi/kitty/GTK/btop).
+#
+# Usage: brave-gruvbox-switch [dark|light]   (default: read ~/.cache/current-theme)
+
+set -euo pipefail
+
+SRC_DIR="$HOME/.config/brave-gruvbox"
+LIVE_DIR="$HOME/.config/brave-gruvbox-theme"
+STATE_FILE="$HOME/.cache/current-theme"
+PREFS="$HOME/.config/BraveSoftware/Brave-Browser/Default/Preferences"
+
+target="${1:-$(cat "$STATE_FILE" 2>/dev/null || echo dark)}"
+if [[ "$target" != "light" ]]; then
+    target="dark"
+fi
+
+mkdir -p "$LIVE_DIR"
+cp "$SRC_DIR/manifest-$target.json" "$LIVE_DIR/manifest.json"
+
+# Keep the New-Tab page solid Gruvbox + square content areas.
+# Preferences may only be edited while Brave is NOT running
+# (Brave rewrites the file and would clobber our change).
+if [[ "$target" == "light" ]]; then
+    ntp_bg="#fbf1c7"
+else
+    ntp_bg="#282828"
+fi
+
+if pgrep -x brave >/dev/null 2>&1; then
+    echo "brave-gruvbox: staged '$target' manifest — restart Brave to apply."
+    exit 0
+fi
+
+python3 - "$PREFS" "$ntp_bg" <<'EOF'
+import json, sys
+prefs_path, ntp_bg = sys.argv[1], sys.argv[2]
+try:
+    with open(prefs_path) as f:
+        prefs = json.load(f)
+except FileNotFoundError:
+    sys.exit(0)
+brave = prefs.setdefault('brave', {})
+ntp = brave.setdefault('new_tab_page', {})
+ntp['background'] = {'random': False, 'selected_value': ntp_bg, 'type': 'color'}
+ntp['show_background_image'] = False
+brave['web_view_rounded_corners'] = False
+with open(prefs_path, 'w') as f:
+    json.dump(prefs, f)
+EOF
+
+echo "brave-gruvbox: applied '$target' (manifest + NTP)."

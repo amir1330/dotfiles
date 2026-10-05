@@ -22,7 +22,7 @@
 | Feature | Description |
 |---|---|
 | **Tiling WM** | Sway with smart gaps, pixel borders, and touchpad gestures. |
-| **Theme engine** | Gruvbox everywhere. Switch dark/light from a wallpaper picker and the theme propagates across Sway, Waybar, Rofi, Wlogout, SwayNC, Kitty, GTK, and btop. |
+| **Theme engine** | Gruvbox everywhere. Switch dark/light from a wallpaper picker and the theme propagates across Sway, Waybar, Rofi, Wlogout, SwayNC, Kitty, GTK, btop, and Brave. |
 | **Keyboard-driven** | Vim-style navigation, workspace switching, and a full screenshot/media keybind set. |
 | **Helper scripts** | Wallpaper picker, workspace navigator, network frontend, screenshot tools, prayer times, and more. |
 | **Self-auditing** | `setup-health`, `setup-inventory`, and `setup-config-coverage` keep the install honest. |
@@ -79,16 +79,27 @@ Optimise the images (`oxipng`, `pngquant`, or ImageMagick) before committing.
 | File manager | [Thunar](https://docs.xfce.org/xfce/thunar/start) | [`Thunar`](Thunar/.config/Thunar) |
 | Gestures | [libinput-gestures](https://github.com/bulletmark/libinput-gestures) | [`libinput`](libinput/.config/libinput-gestures) |
 | Music visualiser | [cava](https://github.com/karlstav/cava) | [`cava`](cava/.config/cava) |
+| Browser (+ Gruvbox theme) | [Brave](https://brave.com/) | [`brave`](brave/.config/brave-gruvbox) + [`scripts`](scripts/.scripts) (`brave`, `brave-gruvbox-launch`, `brave-gruvbox-switch`) |
+| File picker / dialogs | [xdg-desktop-portal](https://github.com/flatpak/xdg-desktop-portal) (gtk/wlr backends) | [`xdg-portal`](xdg-portal/.config/xdg-desktop-portal) |
+| Screenshots (annotate) | [swappy](https://github.com/jtheoof/swappy) | [`swappy`](swappy/.config/swappy) |
+| System monitor | [btop](https://github.com/aristocratos/btop) | [`btop`](btop/.config/btop) |
+| System info | [fastfetch](https://github.com/fastfetch-cli/fastfetch) | [`fastfetch`](fastfetch/.config/fastfetch) |
+| GTK3 / GTK4 + Qt theming | Gruvbox-Dark/Light | [`gtk`](gtk/.config/gtk-3.0), [`gtk4`](gtk4/.config/gtk-4.0), [`qt`](qt/.config) |
+| Git defaults | [git](https://git-scm.com/) | [`git`](git/.gitconfig) |
+| Music daemon | [mpd](https://www.musicpd.org/) + [ncmpcpp](https://github.com/ncmpcpp/ncmpcpp) | [`mpd`](mpd/.config/mpd) |
+| File manager (alt) | pickfm (custom GtkFileChooser-based manager) | [`pickfm`](pickfm/.local/share/applications) |
+| Helper scripts | PATH via `~/.scripts` | [`scripts`](scripts/.scripts) |
 
 ## 🚀 Installation
 
 ```sh
 git clone https://github.com/amir1330/dotfiles ~/dotfiles
 cd ~/dotfiles
-stow -t ~ */
+stow -t ~ bash fish git starship scripts sway kitty rofi waybar swaync swaylock wlogout Thunar btop cava fastfetch gtk gtk4 qt mpd swappy xdg-portal libinput brave nvim opencode openspec pickfm
 ```
 
 > You will need [GNU Stow](https://www.gnu.org/software/stow/) installed. After stowing, log out and back into Sway.
+> `screenshots/` (placeholder images) and `ags/` (unused Hyprland panel) are intentionally **not** stowed — don't use bare `stow -t ~ */`.
 
 ### Dependencies
 
@@ -106,7 +117,7 @@ sudo pacman -S tesseract tesseract-data-eng tesseract-data-rus
 
 | Bind | Action |
 |---|---|
-| `$mod+Return` | open terminal (Kitty) |
+| `$mod+t` | open terminal (Kitty) |
 | `$mod+q` | kill focused window |
 | `$mod+d` | Rofi drun launcher |
 | `$mod+Shift+d` | Rofi run dialog |
@@ -122,7 +133,12 @@ sudo pacman -S tesseract tesseract-data-eng tesseract-data-rus
 | `$mod+minus` / `$mod+Shift+minus` | scratchpad show / move |
 | `$mod+Shift+c` | reload Sway config |
 | `$mod+/` | show keybind cheatsheet |
-| `$mod+Shift+q` | exit Sway |
+| `$mod+Shift+q` | exit Sway (with confirmation) |
+| `$mod+s` / `$mod+w` / `$mod+x` | stacking / tabbed / split-toggle layout |
+| `$mod+r` | enter resize mode |
+| `$mod+Shift+r` | screen recording (desktop audio) |
+| `$mod+Ctrl+r` | screen recording (mic + desktop audio) |
+| `$mod+Ctrl+Shift+n` / `$mod+Ctrl+Alt+n` | night light on / off (`wlsunset`) |
 
 ### Navigation
 
@@ -186,12 +202,15 @@ The allowlist of app-managed config entries is curated in [`scripts/.scripts/set
 | [`sway/scripts/workspace-nav.sh`](sway/.config/sway/scripts/workspace-nav.sh) | Smart workspace navigation. |
 | [`sway/scripts/screenrecord.sh`](sway/.config/sway/scripts/screenrecord.sh) | Screen recording (desktop audio). |
 | [`sway/scripts/screenrecord-mic.sh`](sway/.config/sway/scripts/screenrecord-mic.sh) | Screen recording with mic + desktop audio. |
-| [`sway/scripts/screenshot.sh`](sway/.config/sway/screenshot.sh) | Screen/window/region/freeze screenshots. |
+| [`sway/.config/sway/screenshot.sh`](sway/.config/sway/screenshot.sh) | Screen/window/region/freeze screenshots. |
 | [`sway/scripts/ocr.sh`](sway/.config/sway/scripts/ocr.sh) | OCR a selected screen region with Tesseract and copy the text to the clipboard (`$mod+Ctrl+s`). |
+| [`sway/scripts/nautilus-preload.sh`](sway/.config/sway/scripts/nautilus-preload.sh) | Preloads Nautilus at login (hidden to scratchpad) so `$mod+e` opens instantly. |
+| [`scripts/brave`](scripts/.scripts/brave), [`brave-gruvbox-launch`](scripts/.scripts/brave-gruvbox-launch), [`brave-gruvbox-switch`](scripts/.scripts/brave-gruvbox-switch) | Brave Gruvbox theme/NTP sync with the system theme (dark/light from `~/.cache/current-theme`). |
+| [`brave manifests`](brave/.config/brave-gruvbox) | Static Brave theme extensions (`manifest-dark.json` / `manifest-light.json`) swapped by `brave-gruvbox-switch`. |
 
 ## 🎨 Theme
 
-Gruvbox throughout. Dark/light mode switching is handled by the wallpaper picker and propagated across Sway, Waybar, Rofi, Wlogout, SwayNC, Kitty, GTK, and btop.
+Gruvbox throughout. Dark/light mode switching is handled by the wallpaper picker and propagated across Sway, Waybar, Rofi, Wlogout, SwayNC, Kitty, GTK, and btop. Brave follows too via `brave-gruvbox-switch` (theme manifest + New-Tab background), applied on next Brave restart.
 
 ## 🔐 Lock screen layout fix
 

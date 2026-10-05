@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
-export NEWT_COLORS="root=#3c3836,#fbf1c7 window=#3c3836,#ebdbb2 border=#928374,#ebdbb2 shadow=,#d5c4a1 title=#b57614,#ebdbb2 label=#3c3836,#ebdbb2 textbox=#3c3836,#ebdbb2 acttextbox=#fbf1c7,#458588 entry=#3c3836,#fbf1c7 disentry=#928374,#ebdbb2 button=#fbf1c7,#458588 actbutton=#3c3836,#d79921 compactbutton=#3c3836,#d5c4a1 checkbox=#3c3836,#ebdbb2 actcheckbox=#fbf1c7,#458588 listbox=#3c3836,#ebdbb2 actlistbox=#fbf1c7,#458588 sellistbox=#3c3836,#d79921 actsellistbox=#fbf1c7,#d65d0e helpline=#928374,#fbf1c7 emptyscale=,#d5c4a1 fullscale=,#458588"
+# Gruvbox light/dark newt colors, follows ~/.cache/current-theme (set by wallpaper-picker)
+theme="$(cat "$HOME/.cache/current-theme" 2>/dev/null || echo dark)"
+if [[ "$theme" == "light" ]]; then
+    export NEWT_COLORS="root=#3c3836,#fbf1c7 window=#3c3836,#ebdbb2 border=#928374,#ebdbb2 shadow=,#d5c4a1 title=#b57614,#ebdbb2 label=#3c3836,#ebdbb2 textbox=#3c3836,#ebdbb2 acttextbox=#fbf1c7,#458588 entry=#3c3836,#fbf1c7 disentry=#928374,#ebdbb2 button=#fbf1c7,#458588 actbutton=#3c3836,#d79921 compactbutton=#3c3836,#d5c4a1 checkbox=#3c3836,#ebdbb2 actcheckbox=#fbf1c7,#458588 listbox=#3c3836,#ebdbb2 actlistbox=#fbf1c7,#458588 sellistbox=#3c3836,#d79921 actsellistbox=#fbf1c7,#d65d0e helpline=#928374,#fbf1c7 emptyscale=,#d5c4a1 fullscale=,#458588"
+else
+    export NEWT_COLORS="root=#ebdbb2,#282828 window=#ebdbb2,#282828 border=#928374,#282828 shadow=,#1d2021 title=#fabd2f,#282828 label=#ebdbb2,#282828 textbox=#ebdbb2,#282828 acttextbox=#282828,#83a598 entry=#ebdbb2,#3c3836 disentry=#928374,#282828 button=#282828,#83a598 actbutton=#282828,#fabd2f compactbutton=#ebdbb2,#504945 checkbox=#ebdbb2,#282828 actcheckbox=#282828,#83a598 listbox=#ebdbb2,#282828 actlistbox=#282828,#83a598 sellistbox=#282828,#fabd2f actsellistbox=#282828,#fe8019 helpline=#928374,#282828 emptyscale=,#504945 fullscale=,#83a598"
+fi
 exec /usr/bin/nmtui "$@"

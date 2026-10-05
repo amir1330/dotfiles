@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# brave-gruvbox-launch — sync Gruvbox theme/NTP, then start Brave.
+# Used by the ~/.local/share/applications/brave-browser.desktop override so
+# every launch follows the system theme (dark/light from ~/.cache/current-theme).
+set -euo pipefail
+"$HOME/.scripts/brave-gruvbox-switch" >/dev/null 2>&1 || true
+exec /usr/bin/brave "$@"

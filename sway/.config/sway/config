@@ -36,7 +36,7 @@ set $fileexp /usr/bin/nautilus --new-window
 default_border pixel 4
 default_floating_border pixel 4
 ### Output configuration
-output * bg /home/amir1330/Wallpapers/7731799.png fill
+output * bg /home/amir1330/Wallpapers/8207848.png fill
 
 client.focused          $yellow $accent $darkgray $yellow $yellow
 client.focused_inactive $darkgray $darkgray $accent $darkgray $darkgray
@@ -255,10 +255,10 @@ bindsym --to-code $mod+r mode "resize"
     bindsym --to-code Print exec $screenshot-cmd screen
 
     # Win+Shift+S: active window
-    bindsym --to-code $mod+Shift+s exec $screenshot-cmd window
+    bindsym --to-code --release $mod+Shift+s exec $screenshot-cmd window
 
     # Win+Ctrl+S: OCR selected region
-    bindsym --to-code $mod+Ctrl+s exec ~/.config/sway/scripts/ocr.sh
+    bindsym --to-code --release $mod+Ctrl+s exec ~/.config/sway/scripts/ocr.sh
 
     # window rules
     for_window [app_id="org.gnome.Characters"] floating enable

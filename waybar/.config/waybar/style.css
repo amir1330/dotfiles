@@ -124,7 +124,7 @@ tooltip label {
 }
 
 /* backlight */
-#backlight {
+#custom-backlight {
   color: @yellow;
   border-bottom-color: @yellow;
 }

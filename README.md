@@ -1,4 +1,4 @@
-<h1 align="center">🌲 dotfiles</h1>
+<h1 align="center">dotfiles</h1>
 
 <p align="center">
   <b>A Gruvbox-flavoured Sway desktop on Arch, managed with GNU Stow.</b>
@@ -15,20 +15,20 @@
   <img src="screenshots/desktop.png" alt="Desktop screenshot" width="85%">
 </p>
 
-> 💡 <b>Screenshots are placeholders.</b> See the <a href="#screenshots">Screenshots</a> section for capture instructions.
+> **NOTE: Screenshots are placeholders.** See the <a href="#screenshots">Screenshots</a> section for capture instructions.
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
 | **Tiling WM** | Sway with smart gaps, pixel borders, and touchpad gestures. |
-| **Theme engine** | Gruvbox everywhere. Switch dark/light from a wallpaper picker and the theme propagates across Sway, Waybar, Rofi, Wlogout, SwayNC, Kitty, GTK, btop, and Brave. |
+| **Theme engine** | Gruvbox everywhere. Switch dark/light from a wallpaper picker and the theme propagates across Sway, Waybar, Rofi, Wlogout, SwayNC, Kitty, GTK (including libadwaita/Nautilus), btop, and Brave. |
 | **Keyboard-driven** | Vim-style navigation, workspace switching, and a full screenshot/media keybind set. |
 | **Helper scripts** | Wallpaper picker, workspace navigator, network frontend, screenshot tools, prayer times, and more. |
 | **Self-auditing** | `setup-health`, `setup-inventory`, and `setup-config-coverage` keep the install honest. |
 | **Lock-safe** | `swaylock` is wrapped so it always opens with the `us` keyboard layout, even if you locked while typing in `ru`. |
 
-## 🖼️ Screenshots
+## Screenshots
 
 <p align="center">
   <img src="screenshots/rofi.png" alt="Rofi launcher" width="45%">
@@ -43,7 +43,7 @@
 </p>
 
 <details>
-<summary>📸 How to capture these screenshots</summary>
+<summary>How to capture these screenshots</summary>
 
 Run the helper script on your live Sway session:
 
@@ -52,17 +52,17 @@ Run the helper script on your live Sway session:
 ```
 
 It will write:
-- `screenshots/desktop.png` — clean desktop
-- `screenshots/rofi.png` — launcher
-- `screenshots/waybar.png` — status bar
-- `screenshots/kitty.png` — terminal with a fetch command
-- `screenshots/wlogout.png` — logout menu
+- `screenshots/desktop.png` - clean desktop
+- `screenshots/rofi.png` - launcher
+- `screenshots/waybar.png` - status bar
+- `screenshots/kitty.png` - terminal with a fetch command
+- `screenshots/wlogout.png` - logout menu
 
 Optimise the images (`oxipng`, `pngquant`, or ImageMagick) before committing.
 
 </details>
 
-## 🧱 Stack
+## Stack
 
 | Component | Choice | Dotfiles package |
 |---|---|---|
@@ -76,7 +76,7 @@ Optimise the images (`oxipng`, `pngquant`, or ImageMagick) before committing.
 | Notifications | [SwayNC](https://github.com/ErikReider/SwayNotificationCenter) | [`swaync`](swaync/.config/swaync) |
 | Editor | [Neovim](https://neovim.io/) (LazyVim) | [`nvim`](nvim/.config/nvim) |
 | Prompt | [Starship](https://starship.rs/) | [`starship`](starship) |
-| File manager | [Thunar](https://docs.xfce.org/xfce/thunar/start) | [`Thunar`](Thunar/.config/Thunar) |
+| File manager | [Nautilus](https://apps.gnome.org/Nautilus/) (warmed windowless at login, `$mod+e`) | [`sway`](sway/.config/sway) (`nautilus-preload.sh`) |
 | Gestures | [libinput-gestures](https://github.com/bulletmark/libinput-gestures) | [`libinput`](libinput/.config/libinput-gestures) |
 | Music visualiser | [cava](https://github.com/karlstav/cava) | [`cava`](cava/.config/cava) |
 | Browser (+ Gruvbox theme) | [Brave](https://brave.com/) | [`brave`](brave/.config/brave-gruvbox) + [`scripts`](scripts/.scripts) (`brave`, `brave-gruvbox-launch`, `brave-gruvbox-switch`) |
@@ -90,16 +90,16 @@ Optimise the images (`oxipng`, `pngquant`, or ImageMagick) before committing.
 | File manager (alt) | pickfm (custom GtkFileChooser-based manager) | [`pickfm`](pickfm/.local/share/applications) |
 | Helper scripts | PATH via `~/.scripts` | [`scripts`](scripts/.scripts) |
 
-## 🚀 Installation
+## Installation
 
 ```sh
 git clone https://github.com/amir1330/dotfiles ~/dotfiles
 cd ~/dotfiles
-stow -t ~ bash fish git starship scripts sway kitty rofi waybar swaync swaylock wlogout Thunar btop cava fastfetch gtk gtk4 qt mpd swappy xdg-portal libinput brave nvim opencode openspec pickfm
+stow -t ~ bash fish git starship scripts sway kitty rofi waybar swaync swaylock wlogout btop cava fastfetch gtk gtk4 qt mpd swappy xdg-portal libinput brave nvim opencode openspec pickfm agents
 ```
 
 > You will need [GNU Stow](https://www.gnu.org/software/stow/) installed. After stowing, log out and back into Sway.
-> `screenshots/` (placeholder images) and `ags/` (unused Hyprland panel) are intentionally **not** stowed — don't use bare `stow -t ~ */`.
+> `screenshots/` (placeholder images) and `ags/` (unused Hyprland panel) are intentionally **not** stowed -- don't use bare `stow -t ~ */`.
 
 ### Dependencies
 
@@ -109,7 +109,7 @@ The region OCR keybinding (`$mod+Ctrl+s`) needs Tesseract with English and Russi
 sudo pacman -S tesseract tesseract-data-eng tesseract-data-rus
 ```
 
-## ⌨️ Keybinds
+## Keybinds
 
 `$mod` = <kbd>Super</kbd>/<kbd>Win</kbd>.
 
@@ -122,14 +122,14 @@ sudo pacman -S tesseract tesseract-data-eng tesseract-data-rus
 | `$mod+d` | Rofi drun launcher |
 | `$mod+Shift+d` | Rofi run dialog |
 | `$mod+b` | Qutebrowser |
-| `$mod+e` | Thunar file manager |
+| `$mod+e` | Nautilus file manager |
 | `$mod+z` | Wlogout menu |
 | `$mod+v` | cliphist selector |
 | `$mod+Shift+w` | wallpaper picker (with theme switch) |
 | `$mod+f` | toggle fullscreen |
 | `$mod+Shift+f` | toggle floating |
 | `$mod+a` | focus parent container |
-| `$mod+space` | switch keyboard layout (`us` ↔ `ru`) |
+| `$mod+space` | switch keyboard layout (`us` <-> `ru`) |
 | `$mod+minus` / `$mod+Shift+minus` | scratchpad show / move |
 | `$mod+Shift+c` | reload Sway config |
 | `$mod+/` | show keybind cheatsheet |
@@ -154,8 +154,8 @@ sudo pacman -S tesseract tesseract-data-eng tesseract-data-rus
 
 | Bind | Action |
 |---|---|
-| `$mod+1` … `$mod+0` | switch to workspace 1–10 |
-| `$mod+Shift+1` … `$mod+Shift+0` | move window to workspace 1–10 |
+| `$mod+1` ... `$mod+0` | switch to workspace 1-10 |
+| `$mod+Shift+1` ... `$mod+Shift+0` | move window to workspace 1-10 |
 
 ### Screenshots
 
@@ -171,17 +171,17 @@ The annotation window temporarily switches the keyboard layout to `us` so swappy
 
 | Key | Action |
 |---|---|
-| `XF86AudioMute` / `XF86AudioLowerVolume` / `XF86AudioRaiseVolume` | volume control |
+| `XF86AudioMute` / `XF86AudioLowerVolume` / `XF86AudioRaiseVolume` | volume control (2% steps, no key repeat) |
 | `XF86AudioMicMute` | mic toggle |
 | `XF86AudioPlay` / `XF86AudioNext` / `XF86AudioPrev` | media control |
-| `XF86MonBrightnessDown` / `XF86MonBrightnessUp` | brightness |
-| `$mod+Ctrl+minus` / `$mod+Ctrl+equal` | brightness (alternate) |
+| `XF86MonBrightnessDown` / `XF86MonBrightnessUp` | brightness (2% steps, no key repeat) |
+| `$mod+Ctrl+minus` / `$mod+Ctrl+equal` | brightness, alternate (2% steps, no key repeat) |
 
 ### Touchpad
 
-- 3-finger swipe left/right → next/previous workspace.
+- 3-finger swipe left/right -> next/previous workspace.
 
-## 🔧 Maintenance
+## Maintenance
 
 Helper scripts live in [`scripts/.scripts`](scripts/.scripts) and are exposed on `PATH` via `~/.scripts`.
 
@@ -193,31 +193,34 @@ Helper scripts live in [`scripts/.scripts`](scripts/.scripts) and are exposed on
 
 The allowlist of app-managed config entries is curated in [`scripts/.scripts/setup-allowlist.sh`](scripts/.scripts/setup-allowlist.sh). Run `setup-health` after changing dotfiles to confirm the setup stays healthy.
 
-## 📜 Scripts
+Agent sessions read [`~/openspec/MEMORY.md`](openspec/openspec/MEMORY.md) at start (per [`~/AGENTS.md`](agents/AGENTS.md)) and append an entry when the session changed anything worth remembering. Plans still live in `~/openspec/changes/`.
+
+## Scripts
 
 | Script | What it does |
 |---|---|
 | [`sway/scripts/lock.sh`](sway/.config/sway/scripts/lock.sh) | Switches keyboard layout to `us`, then runs `swaylock`. Called from the Wlogout lock and suspend buttons. |
-| [`sway/scripts/wallpaper-picker.sh`](sway/.config/sway/scripts/wallpaper-picker.sh) | Rofi wallpaper picker with full theme switch across the desktop. |
+| [`sway/scripts/wallpaper-picker.sh`](sway/.config/sway/scripts/wallpaper-picker.sh) | Rofi wallpaper picker with full theme switch across the desktop (Sway, Waybar, Kitty, GTK3/GTK4 incl. Nautilus, btop, Brave). Restarts file managers so they pick up the new theme. |
 | [`sway/scripts/workspace-nav.sh`](sway/.config/sway/scripts/workspace-nav.sh) | Smart workspace navigation. |
 | [`sway/scripts/screenrecord.sh`](sway/.config/sway/scripts/screenrecord.sh) | Screen recording (desktop audio). |
 | [`sway/scripts/screenrecord-mic.sh`](sway/.config/sway/scripts/screenrecord-mic.sh) | Screen recording with mic + desktop audio. |
 | [`sway/.config/sway/screenshot.sh`](sway/.config/sway/screenshot.sh) | Screen/window/region/freeze screenshots. |
 | [`sway/scripts/ocr.sh`](sway/.config/sway/scripts/ocr.sh) | OCR a selected screen region with Tesseract and copy the text to the clipboard (`$mod+Ctrl+s`). |
-| [`sway/scripts/nautilus-preload.sh`](sway/.config/sway/scripts/nautilus-preload.sh) | Preloads Nautilus at login (hidden to scratchpad) so `$mod+e` opens instantly. |
+| [`sway/scripts/nautilus-preload.sh`](sway/.config/sway/scripts/nautilus-preload.sh) | Warms Nautilus at login with no window (`--gapplication-service`) so `$mod+e` opens instantly. |
+| [`waybar/scripts/backlight.sh`](waybar/.config/waybar/scripts/backlight.sh) | Steps screen brightness by 2% and pushes an instant Waybar refresh (`custom/backlight` module, signal 8). Called from brightness keys and Waybar scroll. |
 | [`scripts/brave`](scripts/.scripts/brave), [`brave-gruvbox-launch`](scripts/.scripts/brave-gruvbox-launch), [`brave-gruvbox-switch`](scripts/.scripts/brave-gruvbox-switch) | Brave Gruvbox theme/NTP sync with the system theme (dark/light from `~/.cache/current-theme`). |
 | [`brave manifests`](brave/.config/brave-gruvbox) | Static Brave theme extensions (`manifest-dark.json` / `manifest-light.json`) swapped by `brave-gruvbox-switch`. |
 
-## 🎨 Theme
+## Theme
 
-Gruvbox throughout. Dark/light mode switching is handled by the wallpaper picker and propagated across Sway, Waybar, Rofi, Wlogout, SwayNC, Kitty, GTK, and btop. Brave follows too via `brave-gruvbox-switch` (theme manifest + New-Tab background), applied on next Brave restart.
+Gruvbox throughout. Dark/light mode switching is handled by the wallpaper picker and propagated across Sway, Waybar, Rofi, Wlogout, SwayNC, Kitty, GTK (including libadwaita/Nautilus named colors), and btop. Brave follows too via `brave-gruvbox-switch` (theme manifest + New-Tab background), applied on next Brave restart. Nautilus unfocused (backdrop) colors are pinned so windows don't shift color when losing focus.
 
-## 🔐 Lock screen layout fix
+## Lock screen layout fix
 
 Because Sway uses both `us` and `ru` keyboard layouts, locking with `swaylock` while the active layout is `ru` makes it impossible to type an English password. The [`lock.sh`](sway/.config/sway/scripts/lock.sh) wrapper switches the keyboard layout to `us` before launching `swaylock`, so the lock screen is always usable. The Wlogout `lock` and `suspend` actions both use this wrapper.
 
 ---
 
 <p align="center">
-  <sub>Made with ❤️ and too much Gruvbox.</sub>
+  <sub>Made with too much Gruvbox.</sub>
 </p>

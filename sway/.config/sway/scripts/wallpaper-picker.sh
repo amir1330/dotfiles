@@ -120,6 +120,18 @@ if [[ "$target" != "$current" ]]; then
     # Brave (gruvbox theme follows system theme; restart Brave to apply)
     "$HOME/.scripts/brave-gruvbox-switch" "$target" 2>/dev/null || true
 
+    # GTK4 / libadwaita (Nautilus ignores gtk-theme-name and reads the
+    # named colors in gtk.css instead — swap Gruvbox dark/light to match)
+    cp "$HOME/.config/gtk-4.0/themes/$target.css" "$HOME/.config/gtk-4.0/gtk.css"
+
+    # File managers: running instances keep stale colors (Nautilus holds
+    # gtk.css open; GTK3 apps have no settings daemon on Sway), so quit
+    # them and re-warm Nautilus windowless (no open/close flash).
+    nautilus -q 2>/dev/null || true
+    pkill -f '\.scripts/pickfm' 2>/dev/null || true
+    sleep 1
+    setsid "$HOME/.config/sway/scripts/nautilus-preload.sh" >/dev/null 2>&1 < /dev/null &
+
     # reload sway (applies new border colors + re-reads wallpaper line we just sed'ed)
     # sway does NOT restart waybar on reload if the bar command hasn't changed,
     # so kill it first — sway will re-spawn it from the config on reload

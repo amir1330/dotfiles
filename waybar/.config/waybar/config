@@ -16,7 +16,7 @@
     "tray",
     "pulseaudio",
     "custom/mic",
-    "backlight",
+    "custom/backlight",
     "network",
     "bluetooth",
     "power-profiles-daemon",
@@ -53,8 +53,8 @@
         "󰕾"
       ]
     },
-    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-    "on-scroll-down": "wpctl set-volume -l 2.0 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-",
+    "on-scroll-down": "wpctl set-volume -l 2.0 @DEFAULT_AUDIO_SINK@ 2%+",
     "on-click": "pavucontrol",
     "tooltip": false
   },
@@ -67,11 +67,13 @@
     "interval": "once",
     "signal": 10
   },
-  "backlight": {
-    "format": "bl {percent}%",
-    "device": "intel_backlight",
-    "on-scroll-up": "brightnessctl set 5%-",
-    "on-scroll-down": "brightnessctl set +5%",
+  "custom/backlight": {
+    "exec": "bash $HOME/.config/waybar/scripts/backlight.sh",
+    "format": "{}",
+    "interval": 1,
+    "signal": 8,
+    "on-scroll-up": "bash $HOME/.config/waybar/scripts/backlight.sh down",
+    "on-scroll-down": "bash $HOME/.config/waybar/scripts/backlight.sh up",
     "tooltip": false
   },
   "network": {

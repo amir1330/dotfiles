@@ -1,11 +1,16 @@
 #!/bin/sh
 
+# Fork build with canvas-drag + native RU-layout fixes lives in
+# ~/.local/bin (sway's PATH has no ~/.local/bin, so use absolute path).
+SWAPPY_BIN="$HOME/.local/bin/swappy"
+[ -x "$SWAPPY_BIN" ] || SWAPPY_BIN="swappy"
+
 case $1 in
-  screen) grim - | ~/.config/sway/scripts/swappy-run.sh -f -;;
-  region) grim -g "$(slurp)" - | ~/.config/sway/scripts/swappy-run.sh -f - ;;
+  screen) grim - | "$SWAPPY_BIN" -f -;;
+  region) grim -g "$(slurp)" - | "$SWAPPY_BIN" -f - ;;
   window) grim -g "$(
     swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp
-  )" - | ~/.config/sway/scripts/swappy-run.sh -f - ;;
+  )" - | "$SWAPPY_BIN" -f - ;;
   freeze)
     DIR="$HOME/Pictures/Screenshots"
     mkdir -p "$DIR"
